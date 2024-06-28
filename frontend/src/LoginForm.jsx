@@ -32,7 +32,7 @@ const LoginForm = () => {
         updateUser(loggedInUser);
 
         // Navigate to the home page after successful login
-        navigate('/');
+        navigate('/temp');
       } else {
         // Handle the login failure case
         alert('Login failed');

@@ -5,6 +5,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Landing from './Landing';
 import LoginForm from './LoginForm';
 import SignupForm from './SignupForm';
+import Temp from './Temp';
 
 function App() {
   const [user, setUser] = useState(() => {
@@ -28,6 +29,7 @@ function App() {
         <BrowserRouter>
           <Routes>
             <Route path="/" element={ <Landing /> } />
+            <Route path="/temp" element={ <Temp /> } />
             {/* <Route path="/" element={user ? <Main /> : <LoginForm />} /> */}
             <Route path="/login" element={<LoginForm />} />
             <Route path="/signup" element={<SignupForm />} />

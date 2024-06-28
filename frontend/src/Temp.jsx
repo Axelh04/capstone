@@ -24,10 +24,12 @@ function Temp() {
           {user ? (
             <>
               <span>Hi {user.username}! |</span>
+              <Link to="/">
               <button onClick={handleLogout}>Logout</button>
+              </Link>
             </>
           ) : (
-            <Link to="/login">Login</Link>
+            <Link to="/">Back</Link>
           )}
         </div>
       </header>
