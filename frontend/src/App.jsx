@@ -1,35 +1,41 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import './App.css';
+import { useState, useEffect } from 'react';
+import { UserContext } from './UserContext';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import Temp from './Temp';
+import LoginForm from './LoginForm';
+import SignupForm from './SignupForm';
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [user, setUser] = useState(() => {
+    // Retrieve the user data from storage or set it to null if not found
+    const storedUser = localStorage.getItem('user');
+    return storedUser ? JSON.parse(storedUser) : null;
+  });
+
+  const updateUser = (newUser) => {
+    setUser(newUser);
+  };
+
+  useEffect(() => {
+    // Save the user data to storage whenever the user state changes
+    localStorage.setItem('user', JSON.stringify(user));
+  }, [user]);
 
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    <div className="app">
+      <UserContext.Provider value={{ user, updateUser }}>
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={ <Temp /> } />
+            {/* <Route path="/" element={user ? <Main /> : <LoginForm />} /> */}
+            <Route path="/login" element={<LoginForm />} />
+            <Route path="/signup" element={<SignupForm />} />
+          </Routes>
+        </BrowserRouter>
+      </UserContext.Provider>
+    </div>
+  );
 }
 
-export default App
+export default App;
