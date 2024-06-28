@@ -2,7 +2,7 @@ import './App.css';
 import { useState, useEffect } from 'react';
 import { UserContext } from './UserContext';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import Temp from './Temp';
+import Landing from './Landing';
 import LoginForm from './LoginForm';
 import SignupForm from './SignupForm';
 
@@ -27,7 +27,7 @@ function App() {
       <UserContext.Provider value={{ user, updateUser }}>
         <BrowserRouter>
           <Routes>
-            <Route path="/" element={ <Temp /> } />
+            <Route path="/" element={ <Landing /> } />
             {/* <Route path="/" element={user ? <Main /> : <LoginForm />} /> */}
             <Route path="/login" element={<LoginForm />} />
             <Route path="/signup" element={<SignupForm />} />
