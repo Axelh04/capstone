@@ -1,10 +1,10 @@
 import { useState, useEffect } from "react";
 import { UserContext } from "./UserContext";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Landing from "./Landing";
-import LoginForm from "./LoginForm";
-import SignupForm from "./SignupForm";
-import RecordingPage from "./RecordingPage";
+import Landing from "./LandingPageComp/Landing";
+import LoginForm from "./UserAuth/LoginForm/LoginForm";
+import SignupForm from "./UserAuth/SignupForm/SignupForm";
+import RecordingPage from "./RecordingPageComp/RecordingPage";
 
 function App() {
   const [user, setUser] = useState(() => {

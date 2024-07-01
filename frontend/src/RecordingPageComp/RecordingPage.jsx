@@ -1,5 +1,5 @@
 import { useEffect, useContext } from "react";
-import { UserContext } from "./UserContext.js";
+import { UserContext } from "../UserContext.js";
 import { Link } from "react-router-dom";
 import StoringAudio from "./StoringAudio.jsx";
 import LiveStreaming from "./LiveStreaming.jsx";
