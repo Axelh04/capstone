@@ -14,8 +14,16 @@ datasource db {
 }
 
 model User {
-  id        Int      @id @default(autoincrement())
-  username     String
-  password String
-  email    String
+  id         Int      @id @default(autoincrement())
+  username   String
+  password   String
+  email      String
+  auidos     Recordings[]
+}
+
+model Recordings {
+  id      Int  @id @default(autoincrement())
+  audios  Bytes
+  user    User @relation(fields: [userId], references: [id])
+  userId  Int
 }

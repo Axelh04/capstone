@@ -72,4 +72,23 @@ router.post('/users/login', async (req, res) => {
   }
 });
 
+router.post("/users/:id/audios/create", async (req, res) => {
+  const { id } = req.params;
+  const { audios } = req.body;
+  console.log('Received audios:', audios); // Check what you receive
+
+  try {
+    const newRec = await prisma.recordings.create({
+      data: {
+        audios,
+        userId: parseInt(id)
+      },
+    });
+    res.status(201).json(newRec);
+  } catch (error) {
+    console.error("Failed to save audio:", error);
+    res.status(500).json({ error: "Failed to save audio" });
+  }
+});
+
 module.exports = router;

@@ -8,6 +8,11 @@ const session = require('express-session');
 const cors = require('cors');
 const userRoutes = require('./users.js');
 
+const bodyParser = require('body-parser'); 
+
+app.use(bodyParser.json({ limit: '50mb' }));
+app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
+
 app.use(cors({
     origin: 'http://localhost:5173',
     credentials: true
