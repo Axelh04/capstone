@@ -1,17 +1,20 @@
 import { useEffect, useContext } from "react";
 import { UserContext } from "../UserContext.js";
 import { Link } from "react-router-dom";
-import StoringAudio from "./StoringAudio.jsx";
-import LiveStreaming from "./LiveStreaming.jsx";
+import StoringAudio from "./RecordingComp.jsx";
+import LiveStreaming from "./LiveStreamingComp.jsx";
 
 function RecordingPage() {
   const { user, updateUser } = useContext(UserContext);
 
-  useEffect(() => {}, []);
+  useEffect(() => {
+
+  }, []);
 
   const handleLogout = () => {
     updateUser(null);
   };
+
 
   return (
     <div className="main">

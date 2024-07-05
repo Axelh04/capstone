@@ -7,6 +7,8 @@ const prisma = new PrismaClient()
 const session = require('express-session');
 const cors = require('cors');
 const userRoutes = require('./users.js');
+const audioRoutes = require('./audios.js');
+
 
 const bodyParser = require('body-parser'); 
 
@@ -32,6 +34,8 @@ app.use(
   })
 );
 app.use(userRoutes);
+app.use(audioRoutes);
+
 const PORT = 3000
 app.listen(PORT, () => {
     console.log(`Server is running on http://localhost:${PORT}`)
