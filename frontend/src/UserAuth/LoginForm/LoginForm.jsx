@@ -1,11 +1,11 @@
-import { useState,useContext } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import { UserContext } from './UserContext.js';
-import './LoginForm.css'
+import { useState, useContext } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { UserContext } from "../../UserContext.js";
+import "./LoginForm.css";
 
 const LoginForm = () => {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
   const { updateUser } = useContext(UserContext);
 
   const navigate = useNavigate();
@@ -16,12 +16,12 @@ const LoginForm = () => {
     try {
       // Make the login API request
       const response = await fetch(`http://localhost:3000/users/login`, {
-        method: 'POST',
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({ username, password }),
-        credentials: 'include'
+        credentials: "include",
       });
 
       if (response.ok) {
@@ -32,19 +32,19 @@ const LoginForm = () => {
         updateUser(loggedInUser);
 
         // Navigate to the home page after successful login
-        navigate('/temp');
+        navigate("/record");
       } else {
         // Handle the login failure case
-        alert('Login failed');
+        alert("Login failed");
       }
     } catch (error) {
       // Handle any network or API request errors
-      alert('Login failed: ' + error);
+      alert("Login failed: " + error);
     }
   };
 
   return (
-    <div className='login-form-container'>
+    <div className="login-form-container">
       <form className="login-form" onSubmit={handleLogin}>
         <h2>Login</h2>
         <div className="form-group">

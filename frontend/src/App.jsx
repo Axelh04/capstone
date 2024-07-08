@@ -1,16 +1,15 @@
-import './App.css';
-import { useState, useEffect } from 'react';
-import { UserContext } from './UserContext';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import Landing from './Landing';
-import LoginForm from './LoginForm';
-import SignupForm from './SignupForm';
-import Temp from './Temp';
+import { useState, useEffect } from "react";
+import { UserContext } from "./UserContext";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Landing from "./LandingPageComp/Landing";
+import LoginForm from "./UserAuth/LoginForm/LoginForm";
+import SignupForm from "./UserAuth/SignupForm/SignupForm";
+import RecordingPage from "./RecordingPageComp/RecordingPage";
+import ProfilePage from "./ProfilePageComp/ProfilePage";
 
 function App() {
   const [user, setUser] = useState(() => {
-    // Retrieve the user data from storage or set it to null if not found
-    const storedUser = localStorage.getItem('user');
+    const storedUser = localStorage.getItem("user");
     return storedUser ? JSON.parse(storedUser) : null;
   });
 
@@ -19,8 +18,7 @@ function App() {
   };
 
   useEffect(() => {
-    // Save the user data to storage whenever the user state changes
-    localStorage.setItem('user', JSON.stringify(user));
+    localStorage.setItem("user", JSON.stringify(user));
   }, [user]);
 
   return (
@@ -28,10 +26,14 @@ function App() {
       <UserContext.Provider value={{ user, updateUser }}>
         <BrowserRouter>
           <Routes>
-            <Route path="/" element={ <Landing /> } />
-            <Route path="/temp" element={ <Temp /> } />
-            {/* <Route path="/" element={user ? <Main /> : <LoginForm />} /> */}
-            <Route path="/login" element={<LoginForm />} />
+            <Route path="/" element={<Landing />} />
+            <Route path="/record" element={<RecordingPage />} />
+            <Route path="/profile" element={<ProfilePage />} />
+
+            <Route
+              path="/login"
+              element={user ? <RecordingPage /> : <LoginForm />}
+            />
             <Route path="/signup" element={<SignupForm />} />
           </Routes>
         </BrowserRouter>
