@@ -3,6 +3,8 @@ const router = express.Router();
 const { PrismaClient } = require('@prisma/client')
 const prisma = new PrismaClient()
 
+
+//Save audio recording to DB 
 router.post("/users/:id/audios/create", async (req, res) => {
   const { id } = req.params;
   const { audios } = req.body;
@@ -21,6 +23,7 @@ router.post("/users/:id/audios/create", async (req, res) => {
   }
 });
 
+//Get all audios associated with current user
 router.get("/users/:id/audios", async (req, res) => {
   const { id } = req.params;
   try {
