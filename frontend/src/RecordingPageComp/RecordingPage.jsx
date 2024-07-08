@@ -1,20 +1,11 @@
-import { useEffect, useContext } from "react";
+import { useContext } from "react";
 import { UserContext } from "../UserContext.js";
 import { Link } from "react-router-dom";
-import StoringAudio from "./RecordingComp.jsx";
-import LiveStreaming from "./LiveStreamingComp.jsx";
+import NavBar from "../NavBarComp/NavBar.jsx";
+import RecordingComp from "./RecordingComp.jsx";
 
 function RecordingPage() {
-  const { user, updateUser } = useContext(UserContext);
-
-  useEffect(() => {
-
-  }, []);
-
-  const handleLogout = () => {
-    updateUser(null);
-  };
-
+  const { user } = useContext(UserContext);
 
   return (
     <div className="main">
@@ -23,18 +14,15 @@ function RecordingPage() {
           {user ? (
             <>
               <span>Hi {user.username}! |</span>
-              <Link to="/">
-                <button onClick={handleLogout}>Logout</button>
-              </Link>
             </>
           ) : (
-            <Link to="/">Back</Link>
+            <Link to="/">Error: Please go Back</Link>
           )}
         </div>
       </header>
 
-      <LiveStreaming />
-      <StoringAudio />
+      <RecordingComp />
+      <NavBar />
     </div>
   );
 }

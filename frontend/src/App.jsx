@@ -5,6 +5,7 @@ import Landing from "./LandingPageComp/Landing";
 import LoginForm from "./UserAuth/LoginForm/LoginForm";
 import SignupForm from "./UserAuth/SignupForm/SignupForm";
 import RecordingPage from "./RecordingPageComp/RecordingPage";
+import ProfilePage from "./ProfilePageComp/ProfilePage";
 
 function App() {
   const [user, setUser] = useState(() => {
@@ -26,7 +27,9 @@ function App() {
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<Landing />} />
-            <Route path="/temp" element={<RecordingPage />} />
+            <Route path="/record" element={<RecordingPage />} />
+            <Route path="/profile" element={<ProfilePage />} />
+
             <Route
               path="/login"
               element={user ? <RecordingPage /> : <LoginForm />}

@@ -40,7 +40,7 @@ const SignupForm = () => {
         updateUser(loggedInUser);
 
         // Navigate to the home page after successful login
-        navigate("/temp");
+        navigate("/record");
       } else {
         // Handle signup failure case
         alert("Signup failed");

@@ -1,0 +1,26 @@
+.navBar {
+  position: fixed;
+  left: 0;
+  top: 45%;
+  background-color: whitesmoke;
+  margin-left: -10%;
+  padding: 1% 4% 1% 2%;
+  color: black;
+  text-align: start;
+  transition: 1s;
+}
+
+.navBar:hover {
+  margin-left: 0;
+}
+
+.navButton {
+  font-size: xx-large;
+}
+
+#arrow {
+  font-size: xx-large;
+  position: absolute;
+  top: 38%;
+  right: 1%;
+}
