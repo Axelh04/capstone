@@ -8,9 +8,15 @@ function RecordingComp() {
 
   const recorderControls = useAudioRecorder();
   const reader = new FileReader();
-  const audioContextRef = useRef(new AudioContext()); // Use useRef to persist the AudioContext
+  const audioContextRef = useRef(new AudioContext()); // Use AudioContext for Web-Audio functions
 
   const addAudioElement = (blob) => {
+    const MAX_SIZE = 0.25 * 1024 * 1024; // .25mb max size
+    // Check if blob is more than .25mb
+    if (blob.size > MAX_SIZE) {
+      alert("The file size exceeds the limit of .25MB.");
+      return; // Stop function if too large
+    }
     const src = URL.createObjectURL(blob);
     setAudioSource(src);
     reader.readAsDataURL(blob);
@@ -75,8 +81,6 @@ function RecordingComp() {
         }}
         showVisualizer={true}
       />
-
-      <button onClick={recorderControls.stopRecording}>Stop recording</button>
     </div>
   );
 }
