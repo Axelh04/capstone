@@ -1,5 +1,5 @@
 import { AudioRecorder, useAudioRecorder } from "react-audio-voice-recorder";
-import { useContext, useRef } from "react";
+import { useContext, useEffect, useRef } from "react";
 import { UserContext } from "../UserContext.js";
 import { PitchDetector } from "pitchy";
 
@@ -70,18 +70,24 @@ function RecordingComp() {
     audio.src = audioSrc;
   }
 
+  useEffect(() => {
+    if (recorderControls.recordingTime === 10) recorderControls.stopRecording();
+  }, [recorderControls.recordingTime, recorderControls.stopRecording]);
+
   return (
-    <div>
-      <AudioRecorder
-        onRecordingComplete={(blob) => addAudioElement(blob)}
-        recorderControls={recorderControls}
-        audioTrackConstraints={{
-          noiseSuppression: true,
-          echoCancellation: true,
-        }}
-        showVisualizer={true}
-      />
-    </div>
+    <>
+      <div>
+        <AudioRecorder
+          onRecordingComplete={(blob) => addAudioElement(blob)}
+          recorderControls={recorderControls}
+          audioTrackConstraints={{
+            noiseSuppression: true,
+            echoCancellation: true,
+          }}
+          showVisualizer={true}
+        />
+      </div>
+    </>
   );
 }
 
