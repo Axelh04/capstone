@@ -1,20 +1,27 @@
 import { AudioRecorder, useAudioRecorder } from "react-audio-voice-recorder";
-import { useContext } from "react";
+import { useContext, useRef } from "react";
 import { UserContext } from "../UserContext.js";
+import { PitchDetector } from "pitchy";
 
 function RecordingComp() {
   const { user } = useContext(UserContext);
 
   const recorderControls = useAudioRecorder();
   const reader = new FileReader();
+  const audioContextRef = useRef(new AudioContext()); // Use AudioContext for Web-Audio functions
 
   const addAudioElement = (blob) => {
-    reader.readAsDataURL(blob);
+    const MAX_SIZE = 0.25 * 1024 * 1024; // .25mb max size
+    // Check if blob is more than .25mb
+    if (blob.size > MAX_SIZE) {
+      alert("The file size exceeds the limit of .25MB.");
+      return; // Stop function if too large
+    }
     const src = URL.createObjectURL(blob);
     setAudioSource(src);
-
+    reader.readAsDataURL(blob);
     reader.onload = function (event) {
-      const audiodata = event.target.result.split(",")[1]; //Stores part of URL after the ,
+      const audiodata = event.target.result.split(",")[1]; //Stores part of URL after ,
       fetch(`http://localhost:3000/users/${user.id}/audios/create`, {
         method: "POST",
         headers: {
@@ -23,6 +30,28 @@ function RecordingComp() {
         body: JSON.stringify({ audios: audiodata }),
       });
     };
+
+    if (!audioContextRef.current) {
+      audioContextRef.current = new AudioContext();
+    }
+
+    // Use blob.arrayBuffer() method to read blob as ArrayBuffer
+    blob
+      .arrayBuffer()
+      .then((arrayBuffer) => {
+        audioContextRef.current.decodeAudioData(arrayBuffer, (buffer) => {
+          const input = buffer.getChannelData(0); // mono audio
+          const detector = PitchDetector.forFloat32Array(input.length);
+          const [pitch, clarity] = detector.findPitch(
+            input,
+            audioContextRef.current.sampleRate
+          );
+          console.log(`Detected pitch: ${pitch} Hz, Clarity: ${clarity}`);
+        });
+      })
+      .catch((error) => {
+        console.error("Error reading audio blob:", error);
+      });
   };
 
   function setAudioSource(audioSrc) {
@@ -52,8 +81,6 @@ function RecordingComp() {
         }}
         showVisualizer={true}
       />
-
-      <button onClick={recorderControls.stopRecording}>Stop recording</button>
     </div>
   );
 }

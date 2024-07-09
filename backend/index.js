@@ -12,8 +12,8 @@ const audioRoutes = require('./audios.js');
 
 const bodyParser = require('body-parser'); 
 
-app.use(bodyParser.json({ limit: '50mb' }));
-app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
+app.use(bodyParser.json({ limit: '.25mb' }));
+app.use(bodyParser.urlencoded({ limit: '.25mb', extended: true }));
 
 app.use(cors({
     origin: 'http://localhost:5173',
