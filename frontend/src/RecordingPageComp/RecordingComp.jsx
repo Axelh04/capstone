@@ -9,6 +9,7 @@ function RecordingComp() {
   const [note, setNote] = useState(0);
   const [playbackDuration, setPlaybackDuration] = useState(0);
 
+  //Calling Midisounds to play a chord
   const midiSounds = useRef(null);
   const playTestInstrument = () => {
     midiSounds.current.playChordNow(3, [note], playbackDuration);
