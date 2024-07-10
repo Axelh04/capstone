@@ -1,10 +1,24 @@
 import { AudioRecorder, useAudioRecorder } from "react-audio-voice-recorder";
-import { useContext, useEffect, useRef } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { UserContext } from "../UserContext.js";
 import { PitchDetector } from "pitchy";
+import MIDISounds from "midi-sounds-react";
 
 function RecordingComp() {
   const { user } = useContext(UserContext);
+  const [note, setNote] = useState(0);
+  const [playbackDuration, setPlaybackDuration] = useState(0);
+
+  //Calling Midisounds to play a chord
+  const midiSounds = useRef(null);
+  const playTestInstrument = () => {
+    midiSounds.current.playChordNow(3, [note], playbackDuration);
+  };
+
+  //Formula that converts frequency in HZ to its closes MIDI note number
+  function frequencyToMIDINoteNumber(frequency) {
+    setNote(Math.round(69 + 12 * Math.log2(frequency / 440)));
+  }
 
   const recorderControls = useAudioRecorder();
   const reader = new FileReader();
@@ -20,8 +34,16 @@ function RecordingComp() {
     const src = URL.createObjectURL(blob);
     setAudioSource(src);
     reader.readAsDataURL(blob);
+    let audiodata;
     reader.onload = function (event) {
-      const audiodata = event.target.result.split(",")[1]; //Stores part of URL after ,
+      try {
+        audiodata = event.target.result.split(",")[1]; // Stores part of URL after the comma
+        if (!audiodata) {
+          throw new Error("No data after the comma");
+        }
+      } catch (error) {
+        alert("The file size exceeds the limit of .25MB." + error);
+      }
       fetch(`http://localhost:3000/users/${user.id}/audios/create`, {
         method: "POST",
         headers: {
@@ -42,11 +64,12 @@ function RecordingComp() {
         audioContextRef.current.decodeAudioData(arrayBuffer, (buffer) => {
           const input = buffer.getChannelData(0); // mono audio
           const detector = PitchDetector.forFloat32Array(input.length);
-          const [pitch, clarity] = detector.findPitch(
+          const [pitch] = detector.findPitch(
             input,
             audioContextRef.current.sampleRate
           );
-          console.log(`Detected pitch: ${pitch} Hz, Clarity: ${clarity}`);
+          frequencyToMIDINoteNumber(pitch);
+          setPlaybackDuration(buffer.duration);
         });
       })
       .catch((error) => {
@@ -71,8 +94,8 @@ function RecordingComp() {
   }
 
   useEffect(() => {
-    if (recorderControls.recordingTime === 10) recorderControls.stopRecording();
-  }, [recorderControls.recordingTime, recorderControls.stopRecording]);
+    if (recorderControls.recordingTime >= 10) recorderControls.stopRecording();
+  }, [recorderControls.recordingTime]);
 
   return (
     <>
@@ -87,6 +110,9 @@ function RecordingComp() {
           showVisualizer={true}
         />
       </div>
+
+      <button onClick={playTestInstrument}>Play</button>
+      <MIDISounds ref={midiSounds} appElementName="root" instruments={[3]} />
     </>
   );
 }
