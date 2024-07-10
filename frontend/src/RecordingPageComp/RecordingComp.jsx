@@ -1,10 +1,23 @@
 import { AudioRecorder, useAudioRecorder } from "react-audio-voice-recorder";
-import { useContext, useEffect, useRef } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { UserContext } from "../UserContext.js";
 import { PitchDetector } from "pitchy";
+import MIDISounds from "midi-sounds-react";
 
 function RecordingComp() {
   const { user } = useContext(UserContext);
+  const [note, setNote] = useState(0);
+  const [playbackDuration, setPlaybackDuration] = useState(0);
+
+  const midiSounds = useRef(null);
+  const playTestInstrument = () => {
+    midiSounds.current.playChordNow(3, [note], playbackDuration);
+  };
+
+  //Formula that converts frequency in HZ to its closes MIDI note number
+  function frequencyToMIDINoteNumber(frequency) {
+    setNote(Math.round(69 + 12 * Math.log2(frequency / 440)));
+  }
 
   const recorderControls = useAudioRecorder();
   const reader = new FileReader();
@@ -42,11 +55,12 @@ function RecordingComp() {
         audioContextRef.current.decodeAudioData(arrayBuffer, (buffer) => {
           const input = buffer.getChannelData(0); // mono audio
           const detector = PitchDetector.forFloat32Array(input.length);
-          const [pitch, clarity] = detector.findPitch(
+          const [pitch] = detector.findPitch(
             input,
             audioContextRef.current.sampleRate
           );
-          console.log(`Detected pitch: ${pitch} Hz, Clarity: ${clarity}`);
+          frequencyToMIDINoteNumber(pitch);
+          setPlaybackDuration(buffer.duration);
         });
       })
       .catch((error) => {
@@ -72,7 +86,7 @@ function RecordingComp() {
 
   useEffect(() => {
     if (recorderControls.recordingTime === 10) recorderControls.stopRecording();
-  }, [recorderControls.recordingTime, recorderControls.stopRecording]);
+  }, [recorderControls.recordingTime]);
 
   return (
     <>
@@ -87,6 +101,9 @@ function RecordingComp() {
           showVisualizer={true}
         />
       </div>
+
+      <button onClick={playTestInstrument}>Play</button>
+      <MIDISounds ref={midiSounds} appElementName="root" instruments={[3]} />
     </>
   );
 }
