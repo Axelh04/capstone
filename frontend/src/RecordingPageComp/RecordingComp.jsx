@@ -34,8 +34,16 @@ function RecordingComp() {
     const src = URL.createObjectURL(blob);
     setAudioSource(src);
     reader.readAsDataURL(blob);
+    let audiodata;
     reader.onload = function (event) {
-      const audiodata = event.target.result.split(",")[1]; //Stores part of URL after ,
+      try {
+        audiodata = event.target.result.split(",")[1]; // Stores part of URL after the comma
+        if (!audiodata) {
+          throw new Error("No data after the comma");
+        }
+      } catch (error) {
+        alert("The file size exceeds the limit of .25MB." + error);
+      }
       fetch(`http://localhost:3000/users/${user.id}/audios/create`, {
         method: "POST",
         headers: {
@@ -86,7 +94,7 @@ function RecordingComp() {
   }
 
   useEffect(() => {
-    if (recorderControls.recordingTime === 10) recorderControls.stopRecording();
+    if (recorderControls.recordingTime >= 10) recorderControls.stopRecording();
   }, [recorderControls.recordingTime]);
 
   return (
