@@ -1,13 +1,16 @@
+/* eslint-disable react/prop-types */
+
 import { useState } from "react";
 
-function SimilarSounds() {
+function SimilarSounds({ note, playbackDuration }) {
+  const duration = Math.floor(playbackDuration);
   const [soundList, setSoundList] = useState([]);
 
   const fetchSounds = async () => {
     try {
       const API_KEY = import.meta.env.VITE_APP_API_KEY;
       const response = await fetch(
-        `https://freesound.org/apiv2/search/text/?token=${API_KEY}&query=piano&filter=duration:10&fields=name,previews&page=1`
+        `https://freesound.org/apiv2/search/text/?token=${API_KEY}&query=piano&filter=duration:${duration}%20ac_note_midi:${note}&fields=name,previews`
       );
       const soundData = await response.json();
       setSoundList(soundData.results);
