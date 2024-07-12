@@ -3,6 +3,7 @@ import { UserContext } from "../UserContext.js";
 import { Link } from "react-router-dom";
 import NavBar from "../NavBarComp/NavBar.jsx";
 import RecordingComp from "./RecordingComp.jsx";
+import SimilarSounds from "./InspoSoundsComponent.jsx";
 
 function RecordingPage() {
   const { user } = useContext(UserContext);
@@ -22,6 +23,7 @@ function RecordingPage() {
       </header>
 
       <RecordingComp />
+      <SimilarSounds />
       <NavBar />
     </div>
   );
