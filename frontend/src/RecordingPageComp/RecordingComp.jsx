@@ -1,14 +1,13 @@
+/* eslint-disable react/prop-types */
+
 import { AudioRecorder, useAudioRecorder } from "react-audio-voice-recorder";
-import { useContext, useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useRef } from "react";
 import { UserContext } from "../UserContext.js";
 import { PitchDetector } from "pitchy";
 import MIDISounds from "midi-sounds-react";
 
-function RecordingComp() {
+function RecordingComp({note, setNote, playbackDuration, setPlaybackDuration }) {
   const { user } = useContext(UserContext);
-  const [note, setNote] = useState(0);
-  const [playbackDuration, setPlaybackDuration] = useState(0);
-
   //Calling Midisounds to play a chord
   const midiSounds = useRef(null);
   const playTestInstrument = () => {
