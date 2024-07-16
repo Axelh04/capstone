@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import NavBar from "../NavBarComp/NavBar.jsx";
 import RecordingComp from "./RecordingComp.jsx";
 import SimilarSounds from "./SimilarSounds.jsx";
+import "./RecordingPage.css";
 
 function RecordingPage() {
   const { user } = useContext(UserContext);
@@ -13,26 +14,32 @@ function RecordingPage() {
 
   return (
     <div className="main">
-      <header className="header">
-        <div className="user-info">
-          {user ? (
-            <>
-              <span>Hi {user.username}! |</span>
-            </>
-          ) : (
-            <Link to="/">Error: Please go Back</Link>
-          )}
-        </div>
-      </header>
-
-      <RecordingComp
-        note={note}
-        setNote={setNote}
-        setPlaybackDuration={setPlaybackDuration}
-        playbackDuration={playbackDuration}
-      />
-      <SimilarSounds note={note} playbackDuration={playbackDuration} />
       <NavBar />
+      <div className="user-info">
+        {user ? (
+          <>
+            <span> {user.username}!</span>
+          </>
+        ) : (
+          <Link to="/">Error: Please go Back</Link>
+        )}
+      </div>
+
+      <div className="recording-container">
+        <RecordingComp
+          note={note}
+          setNote={setNote}
+          setPlaybackDuration={setPlaybackDuration}
+          playbackDuration={playbackDuration}
+        />
+      </div>
+      <div className="instruments-container"></div>
+
+      <div className="playback-container">
+        <div className="similar-sounds-container">
+          <SimilarSounds note={note} playbackDuration={playbackDuration} />
+        </div>
+      </div>
     </div>
   );
 }
