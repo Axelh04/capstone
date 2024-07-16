@@ -4,15 +4,10 @@ import { AudioRecorder, useAudioRecorder } from "react-audio-voice-recorder";
 import { useContext, useEffect, useRef } from "react";
 import { UserContext } from "../UserContext.js";
 import { PitchDetector } from "pitchy";
-import MIDISounds from "midi-sounds-react";
 
-function RecordingComp({note, setNote, playbackDuration, setPlaybackDuration }) {
+function RecordingComp({ setNote, setPlaybackDuration }) {
   const { user } = useContext(UserContext);
   //Calling Midisounds to play a chord
-  const midiSounds = useRef(null);
-  const playTestInstrument = () => {
-    midiSounds.current.playChordNow(3, [note], playbackDuration);
-  };
 
   //Formula that converts frequency in HZ to its closes MIDI note number
   function frequencyToMIDINoteNumber(frequency) {
@@ -109,9 +104,6 @@ function RecordingComp({note, setNote, playbackDuration, setPlaybackDuration }) 
           showVisualizer={true}
         />
       </div>
-
-      <button onClick={playTestInstrument}>Play</button>
-      <MIDISounds ref={midiSounds} appElementName="root" instruments={[3]} />
     </>
   );
 }
