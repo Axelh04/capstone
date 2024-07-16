@@ -6,7 +6,7 @@
 }
 
 .user-info {
-  width: 10%;
+  width: 15%;
   position: relative;
   border-style: dashed;
   border-width: 2px;
@@ -46,10 +46,16 @@
 .playback-container {
   width: 91%;
   height: 40%;
-  position: absolute;
-  display: inline-block;
+  position: relative;
+  display: block;
   border-style: dashed;
   border-width: 2px;
   margin: 28% 2% 2% 4%;
 }
 
+#instrument-sound-container {
+  position: absolute;
+  display: inline-block;
+  border-style: dashed;
+  border-width: 2px;
+}

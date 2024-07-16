@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import NavBar from "../NavBarComp/NavBar.jsx";
 import RecordingComp from "./RecordingComp.jsx";
 import SimilarSounds from "./SimilarSounds.jsx";
+import PlaybackContainer from "./PlaybackContainerComp.jsx";
 import "./RecordingPage.css";
 
 function RecordingPage() {
@@ -18,7 +19,7 @@ function RecordingPage() {
       <div className="user-info">
         {user ? (
           <>
-            <span> {user.username}!</span>
+            <span> {user.username} Session.</span>
           </>
         ) : (
           <Link to="/">Error: Please go Back</Link>
@@ -27,15 +28,14 @@ function RecordingPage() {
 
       <div className="recording-container">
         <RecordingComp
-          note={note}
           setNote={setNote}
           setPlaybackDuration={setPlaybackDuration}
-          playbackDuration={playbackDuration}
         />
       </div>
       <div className="instruments-container"></div>
 
       <div className="playback-container">
+        <PlaybackContainer note={note} playbackDuration={playbackDuration} />
         <div className="similar-sounds-container">
           <SimilarSounds note={note} playbackDuration={playbackDuration} />
         </div>
