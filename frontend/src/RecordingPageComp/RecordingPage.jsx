@@ -24,8 +24,7 @@ function RecordingPage() {
         setIsMidiReady(true);
       }
     };
-    // You might need to set a timeout or use another method to ensure midiSounds is initialized
-    setTimeout(checkMidiInitialization, 1000); // Check after 1 second
+    setTimeout(checkMidiInitialization, 1000); 
   }, []);
 
   return (
