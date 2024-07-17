@@ -41,6 +41,8 @@
   border-style: dashed;
   border-width: 2px;
   margin: 1% 4% 2% 75%;
+  overflow: hidden;
+  overflow-y: scroll;
 }
 
 .playback-container {
