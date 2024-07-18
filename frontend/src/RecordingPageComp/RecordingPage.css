@@ -14,8 +14,8 @@
   margin-left: 4%;
 }
 
-.recording-container {
-  width: 70%;
+#microphone-container {
+  width: 20%;
   height: 40%;
   position: absolute;
   display: inline-block;
@@ -25,13 +25,26 @@
 }
 
 .similar-sounds-container {
-  width: 20%;
-  height: 90%;
   position: absolute;
   display: inline-block;
+  width: 20%;
+  height: 90%;
   border-style: dashed;
   border-width: 2px;
   margin: 1% 2% 2% 75%;
+}
+.recording-container {
+  position: absolute;
+  border-style: dashed;
+  border-width: 2px;
+  width: 49%;
+  height: 30rem;
+  margin: -3% 2% 2% 25%;
+  padding: 5% 0% 5% 0%;
+
+  overflow: hidden;
+  overflow-y: scroll;
+  scroll-snap-type: y mandatory;
 }
 .instruments-container {
   width: 20%;
@@ -58,6 +71,17 @@
 #instrument-sound-container {
   position: absolute;
   display: inline-block;
+}
+.audio-item {
   border-style: dashed;
+  display: block;
+  height: 110%;
   border-width: 2px;
+  scroll-snap-align: center;
+  margin-bottom: 20%;
+}
+
+footer {
+  width: 100%;
+  height: min-content;
 }

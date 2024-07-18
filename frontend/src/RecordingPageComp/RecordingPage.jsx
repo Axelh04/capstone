@@ -4,10 +4,11 @@ import { useState, useRef, useEffect } from "react";
 import { Link } from "react-router-dom";
 import MIDISounds from "midi-sounds-react";
 import NavBar from "../NavBarComp/NavBar.jsx";
-import RecordingComp from "./RecordingComp.jsx";
 import SimilarSounds from "./SimilarSounds.jsx";
 import PlaybackContainer from "./PlaybackContainerComp.jsx";
 import InstrumentSelection from "./InstrumentSelectionComp.jsx";
+import RecordingSelector from "./RecordingSelectionComp.jsx";
+import RecordingComp from "./RecordingComp.jsx";
 import "./RecordingPage.css";
 
 function RecordingPage() {
@@ -15,6 +16,8 @@ function RecordingPage() {
   const [note, setNote] = useState(0);
   const [playbackDuration, setPlaybackDuration] = useState(0);
   const [selectedInstrument, setSelectedInstrument] = useState("");
+  const [selectedBlob, setSelectedBlob] = useState(null);
+
   const midiSounds = useRef(null);
 
   const [isMidiReady, setIsMidiReady] = useState(false);
@@ -24,12 +27,61 @@ function RecordingPage() {
         setIsMidiReady(true);
       }
     };
-    setTimeout(checkMidiInitialization, 1000); 
-  }, []);
+    setTimeout(checkMidiInitialization, 1000);
+  }, [selectedBlob]);
 
   return (
-    <div className="main">
-      <NavBar />
+    <>
+      <div className="main">
+        <NavBar />
+        <div className="user-info">
+          {user ? (
+            <>
+              <span> {user.username} Session.</span>
+            </>
+          ) : (
+            <Link to="/">Error: Please go Back</Link>
+          )}
+        </div>
+
+        <RecordingComp
+          setNote={setNote}
+          setPlaybackDuration={setPlaybackDuration}
+          selectedBlob={selectedBlob}
+        />
+        <RecordingSelector
+          setNote={setNote}
+          setPlaybackDuration={setPlaybackDuration}
+          setSelectedBlob={setSelectedBlob}
+          selectedBlob={selectedBlob}
+        />
+
+        <div className="instruments-container">
+          {isMidiReady && (
+            <InstrumentSelection
+              midiSounds={midiSounds}
+              setSelectedInstrument={setSelectedInstrument}
+            />
+          )}
+        </div>
+
+        <div className="playback-container">
+          {isMidiReady && (
+            <PlaybackContainer
+              midiSounds={midiSounds}
+              note={note}
+              playbackDuration={playbackDuration}
+              selectedInstrument={selectedInstrument}
+              selectedBlob={selectedBlob}
+              setNote={setNote}
+              setPlaybackDuration={setPlaybackDuration}
+            />
+          )}
+          <div className="similar-sounds-container">
+            <SimilarSounds note={note} playbackDuration={playbackDuration} />
+          </div>
+        </div>
+      </div>
       <footer>
         <MIDISounds
           ref={midiSounds}
@@ -38,45 +90,7 @@ function RecordingPage() {
           instruments={[3]}
         />
       </footer>
-      <div className="user-info">
-        {user ? (
-          <>
-            <span> {user.username} Session.</span>
-          </>
-        ) : (
-          <Link to="/">Error: Please go Back</Link>
-        )}
-      </div>
-
-      <div className="recording-container">
-        <RecordingComp
-          setNote={setNote}
-          setPlaybackDuration={setPlaybackDuration}
-        />
-      </div>
-      <div className="instruments-container">
-        {isMidiReady && (
-          <InstrumentSelection
-            midiSounds={midiSounds}
-            setSelectedInstrument={setSelectedInstrument}
-          />
-        )}
-      </div>
-
-      <div className="playback-container">
-        {isMidiReady && (
-          <PlaybackContainer
-            midiSounds={midiSounds}
-            note={note}
-            playbackDuration={playbackDuration}
-            selectedInstrument={selectedInstrument}
-          />
-        )}
-        <div className="similar-sounds-container">
-          <SimilarSounds note={note} playbackDuration={playbackDuration} />
-        </div>
-      </div>
-    </div>
+    </>
   );
 }
 
