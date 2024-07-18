@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { PitchDetector } from "pitchy";
 
 function PlaybackContainer({
@@ -12,6 +12,7 @@ function PlaybackContainer({
   setNote,
   setPlaybackDuration,
 }) {
+  const [midiNotes, setMidiNotes] = useState([]);
   const audioContextRef = useRef(new AudioContext());
 
   function frequencyToMIDINoteNumber(frequency) {
@@ -26,26 +27,69 @@ function PlaybackContainer({
     if (!audioContextRef.current) {
       audioContextRef.current = new AudioContext();
     }
-
-    console;
-
     if (!blob) {
       return;
     } else {
-      // Use blob.arrayBuffer() method to read blob as ArrayBuffer
+      const frameSize = 2048; // Increased frame size
+      const overlap = 1024; // Increased overlap
+      const sampleRate = audioContextRef.current.sampleRate;
       blob
         .arrayBuffer()
         .then((arrayBuffer) => {
-          audioContextRef.current.decodeAudioData(arrayBuffer, (buffer) => {
-            const input = buffer.getChannelData(0); // mono audio
-            const detector = PitchDetector.forFloat32Array(input.length);
-            const [pitch] = detector.findPitch(
-              input,
-              audioContextRef.current.sampleRate
-            );
-            frequencyToMIDINoteNumber(pitch);
-            setPlaybackDuration(buffer.duration);
-          });
+          audioContextRef.current.decodeAudioData(
+            arrayBuffer,
+            (buffer) => {
+              let input = buffer.getChannelData(0); // mono audio
+              // Pre-processing: Simple normalization (example)
+              let maxVal = 0;
+              for (let i = 0; i < input.length; i++) {
+                const absValue = Math.abs(input[i]);
+                if (absValue > maxVal) {
+                  maxVal = absValue;
+                }
+              }
+              if (maxVal > 0) {
+                input = input.map((x) => x / maxVal);
+              }
+              const singlePitchDetector = PitchDetector.forFloat32Array(
+                input.length
+              );
+              const [pitch] = singlePitchDetector.findPitch(
+                input,
+                audioContextRef.current.sampleRate
+              );
+
+              frequencyToMIDINoteNumber(pitch);
+              setPlaybackDuration(buffer.duration);
+
+              const multiPitchDetector =
+                PitchDetector.forFloat32Array(frameSize);
+              const pitches = [];
+              const times = [];
+              for (
+                let i = 0;
+                i < input.length - frameSize;
+                i += frameSize - overlap
+              ) {
+                const frame = input.slice(i, i + frameSize);
+                const [pitch, clarity] = multiPitchDetector.findPitch(
+                  frame,
+                  sampleRate
+                );
+                if (clarity > 0.5) {
+                  const midiNote = Math.round(69 + 12 * Math.log2(pitch / 440));
+                  pitches.push(midiNote);
+                  const time = i / sampleRate; // Calculate the time of the current frame
+                  times.push(time);
+                }
+              }
+              setMidiNotes(pitches);
+              console.log("Detected pitches:", pitches, times);
+            },
+            (error) => {
+              console.error("Error decoding audio data:", error);
+            }
+          );
         })
         .catch((error) => {
           console.error("Error reading audio blob:", error);
