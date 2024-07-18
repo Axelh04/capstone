@@ -3,16 +3,12 @@
 import { AudioRecorder, useAudioRecorder } from "react-audio-voice-recorder";
 import { useContext, useEffect, useRef } from "react";
 import { UserContext } from "../UserContext.js";
-import { PitchDetector } from "pitchy";
 
-function RecordingComp({ setNote, setPlaybackDuration }) {
+function RecordingComp() {
   const { user } = useContext(UserContext);
   //Calling Midisounds to play a chord
 
   //Formula that converts frequency in HZ to its closes MIDI note number
-  function frequencyToMIDINoteNumber(frequency) {
-    setNote(Math.round(69 + 12 * Math.log2(frequency / 440)));
-  }
 
   const recorderControls = useAudioRecorder();
   const reader = new FileReader();
@@ -25,8 +21,6 @@ function RecordingComp({ setNote, setPlaybackDuration }) {
       alert("The file size exceeds the limit of .25MB.");
       return; // Stop function if too large
     }
-    const src = URL.createObjectURL(blob);
-    setAudioSource(src);
     reader.readAsDataURL(blob);
     let audiodata;
     reader.onload = function (event) {
@@ -50,42 +44,7 @@ function RecordingComp({ setNote, setPlaybackDuration }) {
     if (!audioContextRef.current) {
       audioContextRef.current = new AudioContext();
     }
-
-    // Use blob.arrayBuffer() method to read blob as ArrayBuffer
-    blob
-      .arrayBuffer()
-      .then((arrayBuffer) => {
-        audioContextRef.current.decodeAudioData(arrayBuffer, (buffer) => {
-          const input = buffer.getChannelData(0); // mono audio
-          const detector = PitchDetector.forFloat32Array(input.length);
-          const [pitch] = detector.findPitch(
-            input,
-            audioContextRef.current.sampleRate
-          );
-          frequencyToMIDINoteNumber(pitch);
-          setPlaybackDuration(buffer.duration);
-        });
-      })
-      .catch((error) => {
-        console.error("Error reading audio blob:", error);
-      });
   };
-
-  function setAudioSource(audioSrc) {
-    // Try to find an existing audio element by its ID
-    let audio = document.getElementById("myAudioPlayer");
-
-    // If doesn't exist, create it and append it to the body
-    if (!audio) {
-      audio = document.createElement("audio");
-      audio.id = "myAudioPlayer"; // Set an ID for easy retrieval
-      audio.controls = true;
-      document.body.appendChild(audio);
-    }
-
-    // update the source of the audio element
-    audio.src = audioSrc;
-  }
 
   useEffect(() => {
     if (recorderControls.recordingTime >= 10) recorderControls.stopRecording();
@@ -93,7 +52,7 @@ function RecordingComp({ setNote, setPlaybackDuration }) {
 
   return (
     <>
-      <div>
+      <div id="microphone-container">
         <AudioRecorder
           onRecordingComplete={(blob) => addAudioElement(blob)}
           recorderControls={recorderControls}

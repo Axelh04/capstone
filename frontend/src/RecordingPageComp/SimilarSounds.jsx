@@ -10,12 +10,12 @@ function SimilarSounds({ note, playbackDuration }) {
     try {
       const API_KEY = import.meta.env.VITE_APP_API_KEY;
       const response = await fetch(
-        `https://freesound.org/apiv2/search/text/?token=${API_KEY}&query=piano&filter=duration:${duration}%20ac_note_midi:${note}&fields=name,previews`
+        `https://freesound.org/apiv2/search/text/?token=${API_KEY}&filter=duration:${duration}%20ac_note_midi:${note}&fields=name,previews`
       );
       const soundData = await response.json();
       setSoundList(soundData.results);
     } catch (error) {
-      alert("Error searching for sounds. Please try again.");
+      alert("Error searching for sounds. Please try again.", error);
     }
   };
 

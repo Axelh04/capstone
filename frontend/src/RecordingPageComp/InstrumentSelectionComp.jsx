@@ -10,15 +10,16 @@ function InstrumentSelection({ midiSounds, setSelectedInstrument }) {
     instrumentList.push(midiSounds.current.player.loader.instrumentInfo(i));
   }
 
-  function updateSelected(index) {
-    setSelectedInstrument(index);
-  }
-
   return (
     <>
       {instrumentList.length > 0 ? (
         instrumentList.map((instrument, index) => (
-          <div key={index} onClick={() => updateSelected(index)}>
+          <div
+            key={index}
+            onClick={() => {
+              setSelectedInstrument(index);
+            }}
+          >
             {" "}
             {instrument.title}{" "}
           </div>
