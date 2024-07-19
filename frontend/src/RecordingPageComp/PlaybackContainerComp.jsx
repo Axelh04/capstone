@@ -4,7 +4,6 @@ import { PitchDetector } from "pitchy";
 
 function PlaybackContainer({
   midiSounds,
-  note,
   playbackDuration,
   selectedInstrument,
   selectedBlob,
@@ -97,13 +96,33 @@ function PlaybackContainer({
     }
   };
 
-  const playTestInstrument = () => {
-    midiSounds.current.playChordNow(
-      selectedInstrument,
-      [note],
-      playbackDuration
-    );
-  };
+  let i = 0;
+  function playTestInstrument() {
+    //loop over MIDInotes array
+    const frameSize = 2048;
+    const overlap = 1024;
+    const sampleRate = audioContextRef.current.sampleRate;
+
+    const delay = ((frameSize - overlap) / sampleRate) * 1000;
+
+    setTimeout(function () {
+      if (i >= midiNotes.length - 1) {
+        console.log("All notes played.f");
+        i = 0;
+        return;
+      }
+      const newNote = midiNotes[i];
+      midiSounds.current.playChordNow(
+        selectedInstrument,
+        [newNote],
+        playbackDuration
+      );
+      i++;
+      if (i < midiNotes.length) {
+        playTestInstrument();
+      }
+    }, delay);
+  }
 
   return (
     <div id="instrument-sound-container">
