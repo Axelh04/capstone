@@ -1,6 +1,7 @@
 /* eslint-disable react/prop-types */
 import { useEffect, useRef, useState } from "react";
 import { PitchDetector } from "pitchy";
+import "./PlaybackSound.css";
 
 function PlaybackContainer({
   midiSounds,
@@ -264,22 +265,36 @@ function PlaybackContainer({
   }
 
   return (
-    <div id="instrument-sound-container">
-      <button onClick={startPlayback}>Play</button>
-      <button onClick={stopPlayback}>Stop</button>
-
-      {selectedInstrument !== "" ? (
-        <div>
-          Selected:
-          {
-            midiSounds.current.player.loader.instrumentInfo(selectedInstrument)
-              .title
-          }
-        </div>
-      ) : (
-        <div> No Instrument Selected.</div>
-      )}
-    </div>
+    <>
+      <div id="selected-instrument-text">
+        {selectedInstrument !== "" ? (
+          <div>
+            Selected: &nbsp;
+            <span id="selected-instrument-title">
+              {
+                midiSounds.current.player.loader.instrumentInfo(
+                  selectedInstrument
+                ).title
+              }
+            </span>
+          </div>
+        ) : (
+          <div> No Instrument Selected.</div>
+        )}
+      </div>
+      <button id="play-button" onClick={startPlayback}>
+        <img
+          alt="play-icon"
+          src="https://www.pngall.com/wp-content/uploads/5/Black-Play-Button-PNG-Free-Download.png"
+        ></img>
+      </button>
+      <button id="stop-button" onClick={stopPlayback}>
+        <img
+          alt="stop-button"
+          src="https://www.clker.com/cliparts/n/K/j/Q/u/d/square-black-crystal-button-md.png"
+        ></img>
+      </button>
+    </>
   );
 }
 
