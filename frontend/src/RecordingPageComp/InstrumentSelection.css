@@ -1,0 +1,36 @@
+#instrument-list {
+  border-color: black;
+  width: 95%;
+  margin: auto;
+  padding-top: 3%;
+}
+
+.instruments-container::-webkit-scrollbar {
+  display: none;
+}
+
+.instrument-item {
+  background-color: gainsboro;
+  border-radius: 50px;
+  padding: 3% 5% 3% 5%;
+  margin: 5%;
+  font-size: x-large;
+  transition: 0.4s;
+}
+
+.selected {
+  background-color: #ff4f00;
+  padding: 3%;
+  margin-top: 5%;
+  margin-bottom: 5%;
+  font-size: x-large;
+  transition: 0.5s;
+  scale: 110%;
+  color: white;
+  border-radius: 30px;
+  width: 100%;
+}
+
+.instrument-item:hover {
+  scale: 110%;
+}

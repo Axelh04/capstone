@@ -34,51 +34,55 @@ function RecordingPage() {
     <>
       <div className="main">
         <NavBar />
-        <div className="user-info">
-          {user ? (
-            <>
-              <span> {user.username} Session.</span>
-            </>
-          ) : (
-            <Link to="/">Error: Please go Back</Link>
-          )}
+
+        <div id="top-half-container">
+          <div className="user-info">
+            {user ? (
+              <>
+                <span> {user.username} Session.</span>
+              </>
+            ) : (
+              <Link to="/">Error: Please go Back</Link>
+            )}
+          </div>
+
+          <RecordingComp
+            setNote={setNote}
+            setPlaybackDuration={setPlaybackDuration}
+            selectedBlob={selectedBlob}
+          />
+          <RecordingSelector
+            setNote={setNote}
+            setPlaybackDuration={setPlaybackDuration}
+            setSelectedBlob={setSelectedBlob}
+            selectedBlob={selectedBlob}
+          />
+
+          <div className="instruments-container">
+            {isMidiReady && (
+              <InstrumentSelection
+                midiSounds={midiSounds}
+                setSelectedInstrument={setSelectedInstrument}
+              />
+            )}
+          </div>
         </div>
-
-        <RecordingComp
-          setNote={setNote}
-          setPlaybackDuration={setPlaybackDuration}
-          selectedBlob={selectedBlob}
-        />
-        <RecordingSelector
-          setNote={setNote}
-          setPlaybackDuration={setPlaybackDuration}
-          setSelectedBlob={setSelectedBlob}
-          selectedBlob={selectedBlob}
-        />
-
-        <div className="instruments-container">
-          {isMidiReady && (
-            <InstrumentSelection
-              midiSounds={midiSounds}
-              setSelectedInstrument={setSelectedInstrument}
-            />
-          )}
-        </div>
-
-        <div className="playback-container">
-          {isMidiReady && (
-            <PlaybackContainer
-              midiSounds={midiSounds}
-              note={note}
-              playbackDuration={playbackDuration}
-              selectedInstrument={selectedInstrument}
-              selectedBlob={selectedBlob}
-              setNote={setNote}
-              setPlaybackDuration={setPlaybackDuration}
-            />
-          )}
-          <div className="similar-sounds-container">
-            <SimilarSounds note={note} playbackDuration={playbackDuration} />
+        <div id="bottom-half-container">
+          <div className="playback-container">
+            {isMidiReady && (
+              <PlaybackContainer
+                midiSounds={midiSounds}
+                note={note}
+                playbackDuration={playbackDuration}
+                selectedInstrument={selectedInstrument}
+                selectedBlob={selectedBlob}
+                setNote={setNote}
+                setPlaybackDuration={setPlaybackDuration}
+              />
+            )}
+            <div className="similar-sounds-container">
+              <SimilarSounds note={note} playbackDuration={playbackDuration} />
+            </div>
           </div>
         </div>
       </div>
