@@ -1,0 +1,23 @@
+#fetch-sounds-button {
+  position: absolute;
+  background-color: gainsboro;
+  margin-left: 23%;
+  padding: 3%;
+  border-radius: 50px;
+  font-size: x-large;
+}
+
+#similar-sounds-list {
+  width: 95%;
+  margin: auto;
+  margin-top: 20%;
+  padding-top: 3%;
+}
+
+#sound-item {
+  margin-bottom: 5%;
+}
+
+.similar-sounds-container::-webkit-scrollbar {
+  display: none;
+}

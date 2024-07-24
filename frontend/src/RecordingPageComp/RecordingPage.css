@@ -57,24 +57,21 @@
   display: inline-block;
   width: 20%;
   height: 90%;
-  border-style: dashed;
-  border-width: 2px;
-  margin: 1% 2% 2% 75%;
+  right: 8%;
+  top: 5%;
+  overflow: hidden;
+  overflow-y: scroll;
 }
 
 .playback-container {
-  width: 91%;
-  height: 40%;
+  width: 90%;
+  height: 80%;
   position: relative;
   display: block;
-  border-style: dashed;
-  border-width: 2px;
-  margin: 28% 2% 2% 4%;
-}
-
-#instrument-sound-container {
-  position: absolute;
-  display: inline-block;
+  border-radius: 100px;
+  margin: 2% 2% 2% 5%;
+  background-color: white;
+  color: black;
 }
 
 footer {
