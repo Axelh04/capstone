@@ -1,7 +1,11 @@
 import { Link } from "react-router-dom";
+import { useContext } from "react";
+import { UserContext } from "../UserContext";
 import "./NavBar.css";
 
 function NavBar() {
+  const { user } = useContext(UserContext);
+
   return (
     <div className="navBar">
       <Link to="/profile">
@@ -14,7 +18,18 @@ function NavBar() {
         <h1 className="navButton">Landing</h1>
       </Link>
 
-      <span id="arrow">→</span>
+      <div className="user-info">
+        {user ? (
+          <>
+            <span> {user.username} Session.</span>
+          </>
+        ) : (
+          <Link to="/">Error: Please go Back</Link>
+        )}
+      </div>
+
+      <span id="arrow">↓</span>
+      <div id="gray-box"></div>
     </div>
   );
 }

@@ -1,7 +1,5 @@
-import { useContext } from "react";
-import { UserContext } from "../UserContext.js";
+
 import { useState, useRef, useEffect } from "react";
-import { Link } from "react-router-dom";
 import MIDISounds from "midi-sounds-react";
 import NavBar from "../NavBarComp/NavBar.jsx";
 import SimilarSounds from "./SimilarSounds.jsx";
@@ -12,7 +10,6 @@ import RecordingComp from "./RecordingComp.jsx";
 import "./RecordingPage.css";
 
 function RecordingPage() {
-  const { user } = useContext(UserContext);
   const [note, setNote] = useState(0);
   const [playbackDuration, setPlaybackDuration] = useState(0);
   const [selectedInstrument, setSelectedInstrument] = useState("");
@@ -36,16 +33,6 @@ function RecordingPage() {
         <NavBar />
 
         <div id="top-half-container">
-          <div className="user-info">
-            {user ? (
-              <>
-                <span> {user.username} Session.</span>
-              </>
-            ) : (
-              <Link to="/">Error: Please go Back</Link>
-            )}
-          </div>
-
           <RecordingComp
             setNote={setNote}
             setPlaybackDuration={setPlaybackDuration}

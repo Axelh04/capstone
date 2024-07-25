@@ -2,8 +2,8 @@
   position: absolute;
   width: 20%;
   height: 80%;
-  top: 10%;
-  left: 30%;
+  top: 15%;
+  left: 28%;
 
   background-color: whitesmoke;
   border-radius: 50px;
@@ -47,16 +47,16 @@
 }
 #profile-info-title {
   position: absolute;
-  top: 5%;
-  left: 34%;
+  top: 10%;
+  left: 31%;
   color: white;
   font-size: xx-large;
 }
 
 #profile-recordings-title {
   position: absolute;
-  top: 5%;
-  left: 63%;
+  top: 10%;
+  left: 60%;
   color: white;
   font-size: xx-large;
 }
@@ -67,8 +67,8 @@
   height: 80%;
   overflow: hidden;
   overflow-y: scroll;
-  left: 52%;
-  top: 10%;
+  left: 50%;
+  top: 15%;
   background-color: gainsboro;
   border-radius: 50px;
   padding: 2.6% 3% 3% 3%;
