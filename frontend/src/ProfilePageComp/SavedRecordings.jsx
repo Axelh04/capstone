@@ -1,9 +1,11 @@
+/* eslint-disable react/prop-types */
+
 import { useContext, useEffect, useState } from "react";
 import { UserContext } from "../UserContext.js";
 
-function SavedRecordings() {
+function SavedRecordings({ recordings, setRecordings }) {
   const { user } = useContext(UserContext);
-  const [recordings, setRecordings] = useState([]);
+  const [recordingIDs, setRecordingIDs] = useState([]);
 
   useEffect(() => {
     fetchData();
@@ -27,24 +29,64 @@ function SavedRecordings() {
           const audioBlob = convertToBlob(item.audios.data, "audio/mp4"); //converts each value in data.audios.data into a blob
           return URL.createObjectURL(audioBlob); //creates URL from blob
         });
-        setRecordings(urls);//Updates state variable with recent list of recordings
+        const ids = data.map((item) => {
+          const numID = item.id;
+          return numID;
+        });
+        setRecordings(urls);
+        setRecordingIDs(ids);
       }
     } catch (error) {
       alert("Failed to fetch audios. Please try again.");
     }
   };
 
+  const handleDelete = async (index) => {
+    try {
+      const audioID = recordingIDs[index]
+      const audioURL = recordings[index]
+      await fetch(
+        `http://localhost:3000/users/${user.id}/audios/${audioID}/delete`,
+        { method: "DELETE" }
+      );
+
+      const updatedIDs = recordingIDs.filter(function (ID) {
+        return ID !== audioID
+      })
+
+      const updatedURLs = recordings.filter(function (url) {
+        return url !== audioURL
+      })
+
+      setRecordingIDs(updatedIDs)
+      setRecordings(updatedURLs)
+
+    }
+    catch (error) {
+
+      alert("Failed to delete audio. Please try again.", error);
+    }
+  };
+
   return (
-    <div>
-      <div>
-        {recordings.length > 0 ? (
-          recordings.map((url, index) => (
-            <audio key={index} controls src={url} />
-          ))
-        ) : (
-          <div>No Recordings found.</div>
-        )}
-      </div>
+    <div id="profile-recordings-list">
+      {recordings.length > 0 ? (
+        recordings.map((url, index) => (
+          <>
+            <audio className="profile-audio" key={index} controls src={url} />
+            <span
+              className="trash-icon"
+              onClick={() => {
+                handleDelete(index);
+              }}
+            >
+              🗑️
+            </span>
+          </>
+        ))
+      ) : (
+        <div>No Recordings found.</div>
+      )}
     </div>
   );
 }
