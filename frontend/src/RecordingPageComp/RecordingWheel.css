@@ -1,4 +1,4 @@
-audio {
+.recording-container > .audio-item > audio {
   width: 100%;
 }
 
