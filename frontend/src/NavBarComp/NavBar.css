@@ -1,18 +1,21 @@
 .navBar {
   position: fixed;
-  left: 0;
-  top: 45%;
+  left: 41%;
+  top: -43%;
   background-color: whitesmoke;
-  margin-left: -10%;
-  padding: 1% 4% 1% 2%;
+  padding: 16.5% 2% 1% 2%;
   color: black;
   text-align: start;
   transition: 1s;
   z-index: 3;
+  height: 50%;
+  border-radius:30px ;
+  box-shadow: -10px 10px 10px #ff4f00, 10px 10px 10px #ff4f00;
+  ;
 }
 
 .navBar:hover {
-  margin-left: 0;
+  top: -16%;
 }
 
 .navButton {
@@ -20,8 +23,22 @@
 }
 
 #arrow {
-  font-size: xx-large;
+  font-size: x-large;
   position: absolute;
-  top: 38%;
-  right: 1%;
+  top: 94%;
+  right: 49%;
+  z-index: 5;
+}
+
+.user-info {
+  font-size: xx-large;
+}
+
+#gray-box {
+  position: absolute;
+  background-color: gainsboro;
+  height: 5%;
+  width: 75%;
+  top: 95%;
+  z-index: 4;
 }
