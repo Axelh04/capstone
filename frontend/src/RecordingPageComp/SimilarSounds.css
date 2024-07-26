@@ -21,3 +21,13 @@
 .similar-sounds-container::-webkit-scrollbar {
   display: none;
 }
+
+.similarsounds-spinner-container {
+  position: absolute;
+  left: 36%;
+  top: 35%;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  height: 100%;
+}

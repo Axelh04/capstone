@@ -4,7 +4,7 @@ import { useContext, useEffect, useState, useRef } from "react";
 import { UserContext } from "../UserContext.js";
 import "./RecordingWheel.css";
 
-function RecordingSelector({ setSelectedBlob, selectedBlob }) {
+function RecordingSelector({ setSelectedBlob, selectedBlob, setIsLoadingRecording}) {
   const { user } = useContext(UserContext);
   const [recordings, setRecordings] = useState([]);
   const containerRef = useRef(null); // Ref for the container
@@ -46,6 +46,10 @@ function RecordingSelector({ setSelectedBlob, selectedBlob }) {
     });
     if (closestElem) {
       const index = Array.from(elements).indexOf(closestElem);
+      setIsLoadingRecording(true)
+      setTimeout(() => {
+        setIsLoadingRecording(false); // Stop loading after 1 second
+      }, 2000);
       setSelectedBlob(recordings[index]);
     }
   }
@@ -89,7 +93,6 @@ function RecordingSelector({ setSelectedBlob, selectedBlob }) {
         ) : (
           <div>No Recordings found.</div>
         )}
-        xs
       </div>
       <div id="wheel-bottom-shadow-box"></div>
     </>
