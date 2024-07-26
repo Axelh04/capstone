@@ -24,19 +24,13 @@ const LoginForm = () => {
         credentials: "include",
       });
 
-      if (response.ok) {
-        const data = await response.json();
-        const loggedInUser = data.user;
+      const data = await response.json();
+      const loggedInUser = data.user;
 
-        // Update the user context
-        updateUser(loggedInUser);
+      // Update the user context
+      updateUser(loggedInUser);
 
-        // Navigate to the home page after successful login
-        navigate("/record");
-      } else {
-        // Handle the login failure case
-        alert("Login failed");
-      }
+      navigate("/record");
     } catch (error) {
       // Handle any network or API request errors
       alert("Login failed: " + error);
