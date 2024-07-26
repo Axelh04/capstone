@@ -18,11 +18,11 @@ function InstrumentSelection({
   }
 
   const handleSelectInstrument = (index) => {
-    if (index === selectedIdx) setSelectedIdx(null); // Set the selected index
+    if (index === selectedIdx) setSelectedIdx(null);
     else setSelectedIdx(index);
 
-    setSelectedInstrument(index); // Perform any additional actions
-    setIsLoadingInstrument(true); // Start loading
+    setSelectedInstrument(index);
+    setIsLoadingInstrument(true);
 
     setTimeout(() => {
       setIsLoadingInstrument(false);
