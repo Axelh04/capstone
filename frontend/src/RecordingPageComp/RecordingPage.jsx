@@ -32,16 +32,9 @@ function RecordingPage() {
     <>
       <div className="main">
         <NavBar />
-
         <div id="top-half-container">
-          <RecordingComp
-            setNote={setNote}
-            setPlaybackDuration={setPlaybackDuration}
-            selectedBlob={selectedBlob}
-          />
+          <RecordingComp />
           <RecordingSelector
-            setNote={setNote}
-            setPlaybackDuration={setPlaybackDuration}
             setSelectedBlob={setSelectedBlob}
             selectedBlob={selectedBlob}
             setIsLoadingRecording={setIsLoadingRecording}
@@ -73,8 +66,6 @@ function RecordingPage() {
                   <div>
                     <PlaybackContainer
                       midiSounds={midiSounds}
-                      note={note}
-                      playbackDuration={playbackDuration}
                       selectedInstrument={selectedInstrument}
                       selectedBlob={selectedBlob}
                       setNote={setNote}

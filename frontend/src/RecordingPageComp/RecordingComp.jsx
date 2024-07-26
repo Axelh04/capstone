@@ -43,7 +43,7 @@ function RecordingComp() {
             throw new Error(`HTTP error! Status: ${response.status}`);
           }
         })
-        .catch((error) => {
+        .catch((error) => {8
           alert("Failed to store audio: " + error.message);
         });
     };
