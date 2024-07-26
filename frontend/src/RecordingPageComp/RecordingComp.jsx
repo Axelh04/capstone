@@ -31,17 +31,21 @@ function RecordingComp() {
       } catch (error) {
         alert("Error processing data: " + error.message);
       }
-      try {
-        fetch(`http://localhost:3000/users/${user.id}/audios/create`, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ audios: audiodata }),
+      fetch(`http://localhost:3000/users/${user.id}/audios/create`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ audios: audiodata }),
+      })
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+          }
+        })
+        .catch((error) => {
+          alert("Failed to store audio: " + error.message);
         });
-      } catch (error) {
-        alert("Failed to store audio: ", error);
-      }
     };
 
     if (!audioContextRef.current) {
