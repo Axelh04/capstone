@@ -1,0 +1,436 @@
+.landing-page {
+  /* border-style: dashed;
+  border-width: 5px; */
+  width: 100%;
+  height: 700vh;
+  overflow: hidden;
+  overflow-y: scroll;
+}
+
+.music-cursor {
+  cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg'  width='40' height='48' viewport='0 0 100 100' style='fill:black;font-size:24px;'><text y='50%'>🎶</text></svg>")
+      16 0,
+    auto;
+}
+
+.mic-cursor {
+  cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg'  width='40' height='48' viewport='0 0 100 100' style='fill:black;font-size:24px;'><text y='50%'>🎙️</text></svg>")
+      16 0,
+    auto;
+}
+
+.mic2-cursor {
+  cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg'  width='40' height='48' viewport='0 0 100 100' style='fill:black;font-size:24px;'><text y='50%'>🎤</text></svg>")
+      16 0,
+    auto;
+}
+
+.voice-cursor {
+  cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg'  width='40' height='48' viewport='0 0 100 100' style='fill:black;font-size:24px;'><text y='50%'>🗣️</text></svg>")
+      16 0,
+    auto;
+}
+
+.header {
+  position: absolute;
+  /* border-style: dashed;
+  border-width: 5px; */
+  width: 100%;
+  height: 100vh;
+  z-index: 1;
+}
+
+#welcome-text {
+  position: absolute;
+  top: 10%;
+  left: 19.5%;
+  font-size: 800%;
+  color: gainsboro;
+}
+
+#title-text {
+  position: absolute;
+  letter-spacing: 1px;
+  top: 5%;
+  left: 21.5%;
+  font-size: 3500%;
+  z-index: 1;
+}
+
+#mic {
+  top: 5%;
+  left: -11%;
+  position: absolute;
+  width: 55%;
+  z-index: 2;
+  transition: 0.7s;
+}
+
+#mic:hover {
+  scale: 1.1;
+}
+
+#bottom-header-gray-box {
+  position: absolute;
+  width: 100%;
+  background-color: gainsboro;
+  height: 30%;
+  top: 75%;
+  box-shadow: -20px -5px 40px gainsboro, 20px -5px 40px gainsboro,
+    0px -15px 55px gainsboro, 0px -20px 70px gainsboro, 0px -30px 90px gainsboro,
+    0px -40px 100px gainsboro, 0px 20px 30px gainsboro, 0px 20px 30px gainsboro,
+    0px 20px 30px gainsboro, 0px 20px 30px gainsboro, 0px 40px 50px gainsboro,
+    0px 60px 60px gainsboro, 0px 100px 80px gainsboro;
+  z-index: 0;
+}
+
+#login-button {
+  position: absolute;
+  top: 80%;
+  background-color: none;
+  padding: 0% 2% 0% 2%;
+  font-size: 400%;
+  border-radius: 50px;
+  left: 45%;
+  color: #ff4f00;
+  transition: 0.3s;
+  z-index: 1;
+}
+
+#login-button:hover,
+#bottom-login-button:hover {
+  background-color: rgb(252, 199, 177);
+}
+
+#signup-button {
+  position: absolute;
+  z-index: 1;
+  background-color: none;
+  padding: 0% 2% 0% 2%;
+  font-size: 400%;
+  border-radius: 50px;
+  top: 80%;
+  color: gray;
+  left: 60%;
+  transition: 0.3s;
+}
+
+#signup-button:hover,
+#bottom-signup-button:hover {
+  background-color: rgb(252, 199, 177);
+}
+
+#description-container {
+  position: absolute;
+  z-index: 0;
+  background-color: white;
+
+  top: 100vh;
+  width: 100%;
+  height: 110vh;
+  box-shadow: 0px -20px 30px white, 0px -20px 30px white, 0px -20px 30px white,
+    0px 20px 30px white, 0px 20px 30px white, 0px 20px 30px white,
+    0px 20px 30px white, 0px 40px 50px white, 0px 60px 60px white,
+    0px 100px 80px white;
+}
+
+#about-container {
+  position: absolute;
+  z-index: -1;
+  background-color: #ff4f00;
+  top: 200vh;
+  width: 100%;
+  height: 200vh;
+}
+
+#desc-text1 {
+  position: absolute;
+  top: 20%;
+  left: 5%;
+  font-size: 1500%;
+  color: gainsboro;
+  text-align: center;
+  line-height: 100%;
+  z-index: 0;
+}
+#desc-text2 {
+  position: absolute;
+  top: 42%;
+  left: 15%;
+  font-size: 1500%;
+  color: rgb(188, 188, 188);
+  text-align: center;
+  line-height: 100%;
+  z-index: 1;
+}
+#desc-text3 {
+  position: absolute;
+  top: 65%;
+  left: 40%;
+  font-size: 1500%;
+  color: rgb(173, 173, 173);
+  text-align: center;
+  line-height: 100%;
+  z-index: 3;
+}
+
+#desc-text4 {
+  position: absolute;
+  top: 115%;
+  left: 5%;
+  font-size: 1500%;
+  color: white;
+  text-align: center;
+  line-height: 100%;
+  z-index: 2;
+}
+
+#voice-text {
+  color: #ff4f00;
+}
+
+#waveTop {
+  top: 84%;
+  right: -35%;
+  position: absolute;
+  width: 100%;
+  z-index: 1;
+  transition: 1s;
+}
+
+#waveTop:hover {
+  right: -40%;
+}
+
+#waveBottom:hover {
+  left: -15%;
+}
+#waveBottom {
+  top: 84%;
+  left: -10%;
+  position: absolute;
+  width: 75%;
+  z-index: 3;
+
+  transition: 1s;
+}
+
+#shure-mic {
+  position: absolute;
+  width: 75%;
+  transform: scaleX(-100%);
+  top: 5%;
+  left: 5%;
+}
+
+#about-title {
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  font-size: 1000%;
+  color: black;
+  text-align: center;
+  line-height: 100%;
+  z-index: 1;
+}
+
+#about-desc {
+  position: absolute;
+  width: 65%;
+  top: 50%;
+  left: 27%;
+  font-size: 300%;
+  color: black;
+  text-align: right;
+  line-height: 100%;
+  z-index: 1;
+}
+
+.highlighter {
+  color: white;
+}
+
+#tutorial-title {
+  position: absolute;
+  width: 100%;
+  top: 70%;
+  left: 5%;
+  font-size: 1000%;
+  color: white;
+  text-align: left;
+  line-height: 100%;
+  z-index: 1;
+}
+
+#recording-desc {
+  position: absolute;
+  width: 50%;
+  top: 85%;
+  left: 5%;
+  font-size: 300%;
+  color: white;
+  text-align: left;
+  line-height: 100%;
+  z-index: 1;
+}
+
+#recording-img {
+  position: absolute;
+  width: 25%;
+  top: 77%;
+  right: 10%;
+}
+
+#recording-ui-img {
+  position: absolute;
+  width: 50%;
+  top: 100%;
+  left: 50%;
+}
+
+#recording-wheel-desc {
+  position: absolute;
+  width: 50%;
+  top: 120%;
+  right: 5%;
+  font-size: 300%;
+  color: white;
+  text-align: right;
+  line-height: 100%;
+  z-index: 1;
+}
+
+#recording-wheel-img {
+  position: absolute;
+  width: 35%;
+  top: 115%;
+  left: 4%;
+}
+
+#recording-wheel-img2 {
+  position: absolute;
+  width: 40%;
+  top: 127%;
+  left: 8%;
+}
+
+#instrument-list-desc {
+  position: absolute;
+  width: 50%;
+  top: 150%;
+  left: 5%;
+  font-size: 300%;
+  color: white;
+  text-align: left;
+  line-height: 100%;
+  z-index: 1;
+}
+
+#instrument-list-img {
+  position: absolute;
+  width: 20%;
+  top: 145%;
+  right: 5%;
+}
+
+#selected-instrument-img {
+  position: absolute;
+  width: 25%;
+  top: 162%;
+  right: 20%;
+}
+
+#playback-instrument-desc {
+  position: absolute;
+  width: 20%;
+  top: 195%;
+  left: 10%;
+  font-size: 300%;
+  color: white;
+  text-align: left;
+  line-height: 100%;
+  z-index: 1;
+}
+
+#playback-buttons-desc {
+  position: absolute;
+  width: 25%;
+  top: 193%;
+  left: 37%;
+  font-size: 300%;
+  color: white;
+  text-align: center;
+  line-height: 100%;
+  z-index: 1;
+}
+
+#playback-similarsounds-desc {
+  position: absolute;
+  width: 25%;
+  top: 195%;
+  right: 8%;
+  font-size: 300%;
+  color: white;
+  text-align: right;
+  line-height: 100%;
+  z-index: 1;
+}
+
+#playback-container-img {
+  position: absolute;
+  width: 80%;
+  top: 210%;
+  right: 10%;
+}
+
+#bottom-page-gray-box {
+  position: absolute;
+  width: 100%;
+  background-color: gainsboro;
+  height: 30%;
+  top: 240%;
+  box-shadow: -20px -5px 40px gainsboro, 20px -5px 40px gainsboro,
+    0px -15px 55px gainsboro, 0px -20px 70px gainsboro, 0px -30px 90px gainsboro,
+    0px -40px 100px gainsboro, 0px 20px 30px gainsboro, 0px 20px 30px gainsboro,
+    0px 20px 30px gainsboro, 0px 20px 30px gainsboro, 0px 40px 50px gainsboro,
+    0px 60px 60px gainsboro, 0px 100px 80px gainsboro;
+  z-index: 4;
+}
+
+#last-chance-text {
+  position: absolute;
+  width: 75%;
+  top: 26%;
+  left: 5%;
+  font-size: 1000%;
+  color: black;
+  text-align: left;
+  line-height: 100%;
+  z-index: 0;
+}
+
+#bottom-login-button {
+  position: absolute;
+  top: 35%;
+  background-color: none;
+  padding: 0% 2% 0% 2%;
+  font-size: 400%;
+  border-radius: 50px;
+  left: 68%;
+  color: #ff4f00;
+  transition: 0.3s;
+  z-index: 5;
+}
+
+#bottom-signup-button {
+  position: absolute;
+  z-index: 2;
+  background-color: none;
+  padding: 0% 2% 0% 2%;
+  font-size: 400%;
+  border-radius: 50px;
+  top: 35%;
+  color: gray;
+  left: 80%;
+  transition: 0.3s;
+}
