@@ -69,7 +69,7 @@ function RecordingSelector({ setSelectedBlob, selectedBlob, setIsLoadingRecordin
       } else {
         const data = await response.json();
         const blobs = data.map((item) => {
-          const audioBlob = convertToBlob(item.audios.data, "audio/mp4"); //converts each value in data.audios.data into a blob
+          const audioBlob = convertToBlob(item.audios.data, "audio/mp3"); //converts each value in data.audios.data into a blob
           return audioBlob;
         });
         setRecordings(blobs); //Updates state variable with recent list of recordings

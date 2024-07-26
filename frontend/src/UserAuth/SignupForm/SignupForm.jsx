@@ -25,26 +25,18 @@ const SignupForm = () => {
         credentials: "include",
       });
 
-      if (response.ok) {
-        const data = await response.json();
-        const loggedInUser = data.user;
+      const data = await response.json();
+      const loggedInUser = data.user;
 
-        console.log("Signup successful");
+      // Reset form fields
+      setUsername("");
+      setEmail("");
+      setPassword("");
 
-        // Reset form fields
-        setUsername("");
-        setEmail("");
-        setPassword("");
+      // Update the user context
+      updateUser(loggedInUser);
 
-        // Update the user context
-        updateUser(loggedInUser);
-
-        // Navigate to the home page after successful login
-        navigate("/record");
-      } else {
-        // Handle signup failure case
-        alert("Signup failed");
-      }
+      navigate("/record");
     } catch (error) {
       // Handle any network or API request errors
       alert("Signup failed: " + error);
