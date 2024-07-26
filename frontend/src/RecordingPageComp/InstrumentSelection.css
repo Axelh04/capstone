@@ -33,4 +33,5 @@
 
 .instrument-item:hover {
   scale: 110%;
+  cursor:pointer;
 }

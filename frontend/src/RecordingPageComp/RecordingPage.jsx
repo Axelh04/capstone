@@ -1,4 +1,3 @@
-
 import { useState, useRef, useEffect } from "react";
 import MIDISounds from "midi-sounds-react";
 import NavBar from "../NavBarComp/NavBar.jsx";
@@ -14,6 +13,8 @@ function RecordingPage() {
   const [playbackDuration, setPlaybackDuration] = useState(0);
   const [selectedInstrument, setSelectedInstrument] = useState("");
   const [selectedBlob, setSelectedBlob] = useState(null);
+  const [isLoadingInstrument, setIsLoadingInstrument] = useState(false);
+  const [isLoadingRecording, setIsLoadingRecording] = useState(false);
 
   const midiSounds = useRef(null);
 
@@ -43,6 +44,7 @@ function RecordingPage() {
             setPlaybackDuration={setPlaybackDuration}
             setSelectedBlob={setSelectedBlob}
             selectedBlob={selectedBlob}
+            setIsLoadingRecording={setIsLoadingRecording}
           />
 
           <div className="instruments-container">
@@ -50,27 +52,44 @@ function RecordingPage() {
               <InstrumentSelection
                 midiSounds={midiSounds}
                 setSelectedInstrument={setSelectedInstrument}
+                setIsLoadingInstrument={setIsLoadingInstrument}
               />
             )}
           </div>
         </div>
         <div id="bottom-half-container">
-          <div className="playback-container">
-            {isMidiReady && (
-              <PlaybackContainer
-                midiSounds={midiSounds}
-                note={note}
-                playbackDuration={playbackDuration}
-                selectedInstrument={selectedInstrument}
-                selectedBlob={selectedBlob}
-                setNote={setNote}
-                setPlaybackDuration={setPlaybackDuration}
-              />
-            )}
-            <div className="similar-sounds-container">
-              <SimilarSounds note={note} playbackDuration={playbackDuration} />
+          {isLoadingRecording ? (
+            <div className="playback-container-spinner-container">
+              <div className="playback-container-spinner"></div>
             </div>
-          </div>
+          ) : (
+            <div className="playback-container">
+              {isMidiReady &&
+                (isLoadingInstrument ? (
+                  <div className="spinner-container">
+                    <div className="playbutton-spinner"></div>
+                  </div>
+                ) : (
+                  <div>
+                    <PlaybackContainer
+                      midiSounds={midiSounds}
+                      note={note}
+                      playbackDuration={playbackDuration}
+                      selectedInstrument={selectedInstrument}
+                      selectedBlob={selectedBlob}
+                      setNote={setNote}
+                      setPlaybackDuration={setPlaybackDuration}
+                    />
+                  </div>
+                ))}
+              <div className="similar-sounds-container">
+                <SimilarSounds
+                  note={note}
+                  playbackDuration={playbackDuration}
+                />
+              </div>
+            </div>
+          )}
         </div>
       </div>
       <footer>

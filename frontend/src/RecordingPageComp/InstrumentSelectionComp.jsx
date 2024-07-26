@@ -2,7 +2,11 @@
 import { useState } from "react";
 import "./InstrumentSelection.css";
 
-function InstrumentSelection({ midiSounds, setSelectedInstrument }) {
+function InstrumentSelection({
+  midiSounds,
+  setSelectedInstrument,
+  setIsLoadingInstrument,
+}) {
   const [selectedIdx, setSelectedIdx] = useState(null);
   let instrumentList = [];
   for (
@@ -14,8 +18,15 @@ function InstrumentSelection({ midiSounds, setSelectedInstrument }) {
   }
 
   const handleSelectInstrument = (index) => {
-    setSelectedIdx(index); // Set the selected index
+    if (index === selectedIdx) setSelectedIdx(null); // Set the selected index
+    else setSelectedIdx(index);
+
     setSelectedInstrument(index); // Perform any additional actions
+    setIsLoadingInstrument(true); // Start loading
+
+    setTimeout(() => {
+      setIsLoadingInstrument(false);
+    }, 1000);
   };
 
   return (
