@@ -11,6 +11,7 @@ function RecordingSelector({
 }) {
   const { user } = useContext(UserContext);
   const [recordings, setRecordings] = useState([]);
+  const [recordingUrls, setRecordingUrls] = useState([]);
   const containerRef = useRef(null);
 
   useEffect(() => {
@@ -85,15 +86,26 @@ function RecordingSelector({
     }
   };
 
+  useEffect(() => {
+    const newBlobs = recordings.map((item) => {
+      return URL.createObjectURL(item);
+    });
+    setRecordingUrls(newBlobs);
+
+    return () => {
+      newBlobs.forEach((blobUrl) => URL.revokeObjectURL(blobUrl));
+    };
+  }, [recordings]);
+
   return (
     <>
       <div id="audio-selection-outline"></div>
       <div className="recording-container" ref={containerRef}>
         <div id="wheel-top-shadow-box"></div>
-        {recordings.length > 0 ? (
-          recordings.map((blob, index) => (
+        {recordingUrls.length > 0 ? (
+          recordingUrls.map((blob, index) => (
             <div key={index} className="audio-item">
-              <audio controls src={URL.createObjectURL(blob)} />
+              <audio controls src={blob} />
             </div>
           ))
         ) : (

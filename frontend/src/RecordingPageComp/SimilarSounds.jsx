@@ -9,14 +9,10 @@ function SimilarSounds({ playbackDuration }) {
   const [isLoadingSounds, setIsLoadingSounds] = useState(false);
 
   const fetchSounds = async () => {
-    //Loading State
-    setIsLoadingSounds(true);
-    setTimeout(() => {
-      setIsLoadingSounds(false);
-    }, 2000);
-
     //Freesound API request
     try {
+      //Loading State
+      setIsLoadingSounds(true);
       const API_KEY = import.meta.env.VITE_APP_API_KEY;
       const response = await fetch(
         `https://freesound.org/apiv2/search/text/?token=${API_KEY}&filter=duration:${duration}&fields=name,previews`
@@ -26,6 +22,7 @@ function SimilarSounds({ playbackDuration }) {
       }
       const soundData = await response.json();
       setSoundList(soundData.results);
+      setIsLoadingSounds(false);
     } catch (error) {
       console.error("Error searching for sounds:", error);
       alert("Error searching for sounds. Please try again. " + error.message);
