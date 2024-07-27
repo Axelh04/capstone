@@ -63,13 +63,9 @@ function PlaybackContainer({
 
               const groupedPitches = groupPitches(pitches, sampleRate, hopSize);
               const filteredPitches = filterShortDurations(groupedPitches, 0.1);
+
               setMidiNotes(filteredPitches);
-
-              //TODO Function to calculate average MIDInotes in filtered pitches to get the average pitch for API request
-
-              //Values will be passed on to SimilarSounds
-              const { pitch } = filteredPitches[0];
-              setNote(frequencyToMIDINoteNumber(pitch));
+              singleNoteDetector(filteredPitches);
               setPlaybackDuration(buffer.duration);
             },
             (error) => {
@@ -82,6 +78,18 @@ function PlaybackContainer({
         });
     }
   };
+
+  function singleNoteDetector(filteredPitches) {
+    if (filteredPitches.length === 0) {
+      return;
+    }
+    const total = filteredPitches.reduce(
+      (acc, pitchData) => acc + pitchData.pitch,
+      0
+    );
+    const averagePitch = total / filteredPitches.length;
+    setNote(averagePitch);
+  }
 
   function analyzePitchOverTime(buffer, sampleRate, windowSize, hopSize) {
     const pitches = [];
