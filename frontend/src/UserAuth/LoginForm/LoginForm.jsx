@@ -23,17 +23,19 @@ const LoginForm = () => {
         body: JSON.stringify({ username, password }),
         credentials: "include",
       });
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      } else {
+        const data = await response.json();
+        const loggedInUser = data.user;
 
-      const data = await response.json();
-      const loggedInUser = data.user;
+        updateUser(loggedInUser);
 
-      // Update the user context
-      updateUser(loggedInUser);
-
-      navigate("/record");
+        navigate("/record");
+      }
     } catch (error) {
-      // Handle any network or API request errors
-      alert("Login failed: " + error);
+      console.error("Login failed: ", error);
+      alert("Login failed: ", error.message);
     }
   };
 

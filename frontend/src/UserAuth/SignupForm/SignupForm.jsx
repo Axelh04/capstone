@@ -25,21 +25,23 @@ const SignupForm = () => {
         credentials: "include",
       });
 
-      const data = await response.json();
-      const loggedInUser = data.user;
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      } else {
+        const data = await response.json();
+        const loggedInUser = data.user;
 
-      // Reset form fields
-      setUsername("");
-      setEmail("");
-      setPassword("");
+        setUsername("");
+        setEmail("");
+        setPassword("");
 
-      // Update the user context
-      updateUser(loggedInUser);
+        updateUser(loggedInUser);
 
-      navigate("/record");
+        navigate("/record");
+      }
     } catch (error) {
-      // Handle any network or API request errors
-      alert("Signup failed: " + error);
+      console.error("Signup failed: ", error);
+      alert("Signup failed: ", error.message);
     }
   };
 
