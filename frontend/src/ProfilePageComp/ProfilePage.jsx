@@ -9,7 +9,6 @@ function ProfilePage() {
   const { user, updateUser } = useContext(UserContext);
   const [recordings, setRecordings] = useState([]);
 
-  console.log(user);
   const handleLogout = () => {
     updateUser(null);
   };
@@ -19,13 +18,25 @@ function ProfilePage() {
       <div id="profile-info-title">Profile Information</div>
       <div id="profile-info-container">
         {user ? (
-          <div id = "profile-details">
-            <div className="info-text">Your UserID: <span className="user-detail">{user.id}</span></div>
-            <div className="info-text">Your Username: <span className="user-detail">{user.username}</span></div>
-            <div className="info-text">Your Email: <span className="user-detail">{user.email}</span></div>
-            <div className="info-text">Total Recordings: <span className="user-detail">{recordings.length}</span> </div>
+          <div id="profile-details">
+            <div className="info-text">
+              Your UserID: <span className="user-detail">{user.id}</span>
+            </div>
+            <div className="info-text">
+              Your Username:{" "}
+              <span className="user-detail">{user.username}</span>
+            </div>
+            <div className="info-text">
+              Your Email: <span className="user-detail">{user.email}</span>
+            </div>
+            <div className="info-text">
+              Total Recordings:{" "}
+              <span className="user-detail">{recordings.length}</span>{" "}
+            </div>
             <Link to="/">
-              <button id = "logout-button" onClick={handleLogout}>Logout</button>
+              <button id="logout-button" onClick={handleLogout}>
+                Logout
+              </button>
             </Link>
           </div>
         ) : (
@@ -33,7 +44,7 @@ function ProfilePage() {
         )}
       </div>
       <div id="profile-recordings-title">All Recordings</div>
-      <SavedRecordings recordings = {recordings} setRecordings ={setRecordings} />
+      <SavedRecordings recordings={recordings} setRecordings={setRecordings} />
       <NavBar />
     </div>
   );
