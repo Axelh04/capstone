@@ -1,28 +1,38 @@
 /* eslint-disable react/prop-types */
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "./SimilarSounds.css";
 
-function SimilarSounds({ playbackDuration }) {
+function SimilarSounds({ note, playbackDuration }) {
   const duration = Math.floor(playbackDuration);
   const [soundList, setSoundList] = useState([]);
   const [isLoadingSounds, setIsLoadingSounds] = useState(false);
 
-  const fetchSounds = async () => {
+  useEffect(() => {
+    const midiNote = Math.floor(note);
+    fetchSounds(midiNote);
+  }, [note]);
+
+  const fetchSounds = async (midinote) => {
     //Freesound API request
     try {
-      //Loading State
       setIsLoadingSounds(true);
-      const API_KEY = import.meta.env.VITE_APP_API_KEY;
-      const response = await fetch(
-        `https://freesound.org/apiv2/search/text/?token=${API_KEY}&filter=duration:${duration}&fields=name,previews`
-      );
-      if (!response.ok) {
-        throw new Error(`HTTP error! Status: ${response.status}`);
+      console.log(note);
+      if (note != 0) {
+        const API_KEY = import.meta.env.VITE_APP_API_KEY;
+        const response = await fetch(
+          `https://freesound.org/apiv2/search/text/?token=${API_KEY}&filter=duration:${duration}%20ac_note_midi:${midinote}&fields=name,previews`
+        );
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
+        } else {
+          const soundData = await response.json();
+          setSoundList(soundData.results);
+          setIsLoadingSounds(false);
+        }
+      } else {
+        console.error("No MIDI note selected");
       }
-      const soundData = await response.json();
-      setSoundList(soundData.results);
-      setIsLoadingSounds(false);
     } catch (error) {
       console.error("Error searching for sounds:", error);
       alert("Error searching for sounds. Please try again. " + error.message);
@@ -31,9 +41,7 @@ function SimilarSounds({ playbackDuration }) {
 
   return (
     <>
-      <button id="fetch-sounds-button" onClick={fetchSounds}>
-        Get Similar Sounds
-      </button>
+      <div id="fetch-sounds-button">Get Similar Sounds</div>
       {isLoadingSounds ? (
         <div className="similarsounds-spinner-container">
           <div className="playbutton-spinner"></div>
