@@ -1,4 +1,4 @@
-### README.md for Vocally
+
 
 ![image](https://github.com/user-attachments/assets/24d874e7-c370-4801-ad16-0592ff9489fe)
 
