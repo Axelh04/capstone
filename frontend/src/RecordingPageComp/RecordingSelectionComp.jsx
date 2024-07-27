@@ -4,10 +4,14 @@ import { useContext, useEffect, useState, useRef } from "react";
 import { UserContext } from "../UserContext.js";
 import "./RecordingWheel.css";
 
-function RecordingSelector({ setSelectedBlob, selectedBlob, setIsLoadingRecording}) {
+function RecordingSelector({
+  setSelectedBlob,
+  selectedBlob,
+  setIsLoadingRecording,
+}) {
   const { user } = useContext(UserContext);
   const [recordings, setRecordings] = useState([]);
-  const containerRef = useRef(null); // Ref for the container
+  const containerRef = useRef(null);
 
   useEffect(() => {
     fetchData();
@@ -29,6 +33,7 @@ function RecordingSelector({ setSelectedBlob, selectedBlob, setIsLoadingRecordin
     let closestElem = null;
     let minDistance = null;
     elements.forEach((elem) => {
+      //Selects of Audio Element based on proximity to center
       const elemTop = elem.offsetTop - containerScrollTop;
       const elemMiddle = elemTop + elem.offsetHeight / 2;
       const distance = Math.abs(elemMiddle - containerHeight / 2);
@@ -37,18 +42,19 @@ function RecordingSelector({ setSelectedBlob, selectedBlob, setIsLoadingRecordin
         minDistance = distance;
       }
 
-      const maxDistance = containerHeight / 2; // maximum possible distance from the center
-      const scale = 1 - distance / maxDistance; // Calculate scale based on proximity
-      const minScale = 0.7; // Minimum scale factor
-      const maxScale = 1.3; // Maximum scale factor
-      const normalizedScale = minScale + (maxScale - minScale) * scale; // Normalize scale between minScale and maxScale
-      elem.style.transform = `scale(${normalizedScale})`; // Apply scale transformation
+      //Scales Audio Element based on proximity to center
+      const maxDistance = containerHeight / 2;
+      const scale = 1 - distance / maxDistance;
+      const minScale = 0.7;
+      const maxScale = 1.3;
+      const normalizedScale = minScale + (maxScale - minScale) * scale;
+      elem.style.transform = `scale(${normalizedScale})`;
     });
     if (closestElem) {
       const index = Array.from(elements).indexOf(closestElem);
-      setIsLoadingRecording(true)
+      setIsLoadingRecording(true);
       setTimeout(() => {
-        setIsLoadingRecording(false); // Stop loading after 1 second
+        setIsLoadingRecording(false);
       }, 2000);
       setSelectedBlob(recordings[index]);
     }
@@ -69,13 +75,13 @@ function RecordingSelector({ setSelectedBlob, selectedBlob, setIsLoadingRecordin
       } else {
         const data = await response.json();
         const blobs = data.map((item) => {
-          const audioBlob = convertToBlob(item.audios.data, "audio/mp3"); //converts each value in data.audios.data into a blob
+          const audioBlob = convertToBlob(item.audios.data, "audio/mp3");
           return audioBlob;
         });
-        setRecordings(blobs); //Updates state variable with recent list of recordings
+        setRecordings(blobs);
       }
     } catch (error) {
-      alert("Failed to fetch audios. Please try again.");
+      alert("Failed to fetch audios. Please try again.", error.message);
     }
   };
 
