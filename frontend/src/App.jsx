@@ -4,7 +4,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Landing from "./LandingPageComp/Landing";
 import LoginForm from "./UserAuth/LoginForm/LoginForm";
 import SignupForm from "./UserAuth/SignupForm/SignupForm";
-import RecordingPage from "./RecordingPageComp/RecordingPage";
+import RecordingPage from "./RecordingPageComp/RecordingPage/RecordingPage";
 import ProfilePage from "./ProfilePageComp/ProfilePage";
 
 function App() {

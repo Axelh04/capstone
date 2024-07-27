@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./InstrumentSelection.css";
 
 function InstrumentSelection({
@@ -8,6 +8,7 @@ function InstrumentSelection({
   setIsLoadingInstrument,
 }) {
   const [selectedIdx, setSelectedIdx] = useState(null);
+
   let instrumentList = [];
   for (
     let i = 0;
@@ -18,16 +19,20 @@ function InstrumentSelection({
   }
 
   const handleSelectInstrument = (index) => {
-    if (index === selectedIdx) setSelectedIdx(null); // Set the selected index
-    else setSelectedIdx(index);
+    if (index === selectedIdx) {
+      setSelectedIdx(null);
+    } else {
+      setSelectedIdx(index);
+      setSelectedInstrument(index);
+      setIsLoadingInstrument(true);
+    }
+  };
 
-    setSelectedInstrument(index); // Perform any additional actions
-    setIsLoadingInstrument(true); // Start loading
-
+  useEffect(() => {
     setTimeout(() => {
       setIsLoadingInstrument(false);
     }, 1000);
-  };
+  }, [selectedIdx]);
 
   return (
     <>

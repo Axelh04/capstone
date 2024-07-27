@@ -9,20 +9,23 @@ function SimilarSounds({ playbackDuration }) {
   const [isLoadingSounds, setIsLoadingSounds] = useState(false);
 
   const fetchSounds = async () => {
-    setIsLoadingSounds(true); // Start loading
-    // Simulate loading time or wait for an actual event that confirms the instrument is ready
-    setTimeout(() => {
-      setIsLoadingSounds(false); // Stop loading after 1 second
-    }, 2000);
+    //Freesound API request
     try {
+      //Loading State
+      setIsLoadingSounds(true);
       const API_KEY = import.meta.env.VITE_APP_API_KEY;
       const response = await fetch(
         `https://freesound.org/apiv2/search/text/?token=${API_KEY}&filter=duration:${duration}&fields=name,previews`
       );
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
       const soundData = await response.json();
       setSoundList(soundData.results);
+      setIsLoadingSounds(false);
     } catch (error) {
-      alert("Error searching for sounds. Please try again.", error);
+      console.error("Error searching for sounds:", error);
+      alert("Error searching for sounds. Please try again. " + error.message);
     }
   };
 
@@ -38,13 +41,13 @@ function SimilarSounds({ playbackDuration }) {
       ) : (
         <div id="similar-sounds-list">
           {soundList.length > 0 ? (
-            soundList.map((sound, i) => (
-              <div key={i} id="sound-item">
+            soundList.map((sound, index) => (
+              <div key={index} id="sound-item">
                 <audio controls src={sound.previews["preview-lq-mp3"]}></audio>
               </div>
             ))
           ) : (
-            <div></div>
+            <></>
           )}
         </div>
       )}

@@ -1,7 +1,6 @@
 /* eslint-disable react/prop-types */
 import { useEffect, useRef, useState } from "react";
-import { PitchDetector } from "pitchy";
-import "./PlaybackSound.css";
+import "./PlaybackContainer.css";
 
 function PlaybackContainer({
   midiSounds,
@@ -38,10 +37,9 @@ function PlaybackContainer({
           audioContextRef.current.decodeAudioData(
             arrayBuffer,
             (buffer) => {
-              let input = buffer.getChannelData(0); // mono audio
+              let input = buffer.getChannelData(0);
 
               // Pre-processing: Simple normalization
-
               let maxVal = 0;
               for (let i = 0; i < input.length; i++) {
                 const absValue = Math.abs(input[i]);
@@ -64,18 +62,13 @@ function PlaybackContainer({
               );
 
               const groupedPitches = groupPitches(pitches, sampleRate, hopSize);
-              const filteredPitches = filterShortDurations(groupedPitches, 0.1); // Filter out short durations
+              const filteredPitches = filterShortDurations(groupedPitches, 0.1);
               setMidiNotes(filteredPitches);
 
-              //Single Pitch detector
-              const singlePitchDetector = PitchDetector.forFloat32Array(
-                input.length
-              );
-              const [pitch] = singlePitchDetector.findPitch(
-                input,
-                audioContextRef.current.sampleRate
-              );
+              //TODO Function to calculate average MIDInotes in filtered pitches to get the average pitch for API request
+
               //Values will be passed on to SimilarSounds
+              const { pitch } = filteredPitches[0];
               setNote(frequencyToMIDINoteNumber(pitch));
               setPlaybackDuration(buffer.duration);
             },
@@ -106,6 +99,10 @@ function PlaybackContainer({
     return pitches;
   }
 
+  // Takes in audio buffer data and performs an operation that compares two versions of the audio data
+  // Uses lag between wavelength data to determine when a vocal pitch is detected, if so this returns that frequency in hz
+  // Performs function at specific slice determined by the analyzePitchOverTime algorithim
+  // Inspired by Yin's mathematical algorithim for pitch detection
   function yin(buffer, sampleRate) {
     const threshold = 0.15; // Threshold for determining a clear pitch
     const bufferSize = buffer.length;
@@ -155,14 +152,18 @@ function PlaybackContainer({
     }
   }
 
+  // Function groupsPitches joins pitches seperated by null more than 7 values in pitches array
+  // Need this to determine what note the user was most likely trying to sing
   function groupPitches(pitches, sampleRate, hopSize) {
     const groupedPitches = [];
     let currentGroup = [];
-    let nullCount = 0; // Counter for consecutive nulls
-    let groupStartIndex = 0; // Index where the current group starts
+    let nullCount = 0;
+    let groupStartIndex = 0;
 
     pitches.forEach((pitch, index) => {
       if (pitch !== null) {
+        // Pauses in between each vocal note correlate to more than 7 consecutive null values in pitches array
+        // Calculated through trial and error
         if (nullCount >= 7) {
           if (currentGroup.length > 0) {
             const groupedPitch = processPitchGroup(
@@ -176,8 +177,7 @@ function PlaybackContainer({
             }
             currentGroup = [];
           }
-          groupStartIndex = index; // Update start index for new group
-          nullCount = 0;
+          groupStartIndex = index;
         }
         currentGroup.push(pitch);
         nullCount = 0;
@@ -207,7 +207,7 @@ function PlaybackContainer({
       pitchGroup.reduce((acc, pitch) => acc + pitch, 0) / pitchGroup.length;
     const roundedPitch = Math.round(averagePitch);
     const duration = pitchGroup.length * (hopSize / sampleRate);
-    const startTime = startIndex * (hopSize / sampleRate); // Calculate start time based on index
+    const startTime = startIndex * (hopSize / sampleRate);
 
     return { pitch: roundedPitch, duration, startTime };
   }
@@ -216,15 +216,15 @@ function PlaybackContainer({
     return pitches.filter((pitch) => pitch.duration >= minDuration);
   }
 
-  const [timeoutId, setTimeoutId] = useState(null); // State to store the current timeout ID
+  const [timeoutId, setTimeoutId] = useState(null);
 
   function playTestInstrument(pitchesArray) {
     if (pitchesArray.length === 0 || !isPlaying) return;
 
-    let index = 0; // Initialize index to track the current note
+    let index = 0;
 
     function playNextNote() {
-      if (!isPlaying) return; // Stop if playback is stopped
+      if (!isPlaying) return;
 
       const { pitch, duration, startTime } = pitchesArray[index];
       midiSounds.current.playChordNow(
@@ -234,22 +234,20 @@ function PlaybackContainer({
       );
 
       // Calculate the delay for next note
-      index = (index + 1) % pitchesArray.length; // Loop back to  start
+      index = (index + 1) % pitchesArray.length;
       const nextNote = pitchesArray[index];
       let delay;
       if (index === 0) {
-        // If we're looping back to start, set delay to first group's startTime
         delay = nextNote.startTime * 1000;
       } else {
-        // Else calculate delay based on the difference in start times
         delay = (nextNote.startTime - startTime) * 1000;
       }
 
       const id = setTimeout(playNextNote, delay);
-      setTimeoutId(id); // Store new timeout ID
+      setTimeoutId(id);
     }
 
-    playNextNote(); // loop
+    playNextNote();
   }
 
   function startPlayback() {
@@ -283,16 +281,10 @@ function PlaybackContainer({
         )}
       </div>
       <button id="play-button" onClick={startPlayback}>
-        <img
-          alt="play-icon"
-          src="https://www.pngall.com/wp-content/uploads/5/Black-Play-Button-PNG-Free-Download.png"
-        ></img>
+        <img alt="play-icon" src="/play-button.png"></img>
       </button>
       <button id="stop-button" onClick={stopPlayback}>
-        <img
-          alt="stop-button"
-          src="https://www.clker.com/cliparts/n/K/j/Q/u/d/square-black-crystal-button-md.png"
-        ></img>
+        <img alt="stop-button" src="/stop-button.png"></img>
       </button>
     </>
   );

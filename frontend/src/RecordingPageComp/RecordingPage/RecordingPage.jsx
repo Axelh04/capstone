@@ -1,11 +1,11 @@
 import { useState, useRef, useEffect } from "react";
 import MIDISounds from "midi-sounds-react";
-import NavBar from "../NavBarComp/NavBar.jsx";
-import SimilarSounds from "./SimilarSounds.jsx";
-import PlaybackContainer from "./PlaybackContainerComp.jsx";
-import InstrumentSelection from "./InstrumentSelectionComp.jsx";
-import RecordingSelector from "./RecordingSelectionComp.jsx";
-import RecordingComp from "./RecordingComp.jsx";
+import NavBar from "../../NavBarComp/NavBar.jsx";
+import SimilarSounds from "../SimilarSounds/SimilarSounds.jsx";
+import PlaybackContainer from "../PlaybackContainer/PlaybackContainerComp.jsx";
+import InstrumentSelection from "../InstrumentSelection/InstrumentSelectionComp.jsx";
+import RecordingSelector from "../RecordingSelection/RecordingSelectionComp.jsx";
+import RecordingComp from "../RecordingComp/RecordingComp.jsx";
 import "./RecordingPage.css";
 
 function RecordingPage() {
@@ -32,16 +32,9 @@ function RecordingPage() {
     <>
       <div className="main">
         <NavBar />
-
         <div id="top-half-container">
-          <RecordingComp
-            setNote={setNote}
-            setPlaybackDuration={setPlaybackDuration}
-            selectedBlob={selectedBlob}
-          />
+          <RecordingComp />
           <RecordingSelector
-            setNote={setNote}
-            setPlaybackDuration={setPlaybackDuration}
             setSelectedBlob={setSelectedBlob}
             selectedBlob={selectedBlob}
             setIsLoadingRecording={setIsLoadingRecording}
@@ -73,8 +66,6 @@ function RecordingPage() {
                   <div>
                     <PlaybackContainer
                       midiSounds={midiSounds}
-                      note={note}
-                      playbackDuration={playbackDuration}
                       selectedInstrument={selectedInstrument}
                       selectedBlob={selectedBlob}
                       setNote={setNote}
