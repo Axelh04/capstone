@@ -41,9 +41,9 @@
 }
 
 #logout-button:hover {
-    background-color: gainsboro;
-    padding: 2% 5% 2% 5%;
-    border-radius: 30px;
+  background-color: gainsboro;
+  padding: 2% 5% 2% 5%;
+  border-radius: 30px;
 }
 #profile-info-title {
   position: absolute;
@@ -75,8 +75,8 @@
 }
 
 #profile-recordings-list::-webkit-scrollbar {
-    display: none;
-  }
+  display: none;
+}
 
 .profile-audio {
   width: 75%;
@@ -93,18 +93,18 @@
 }
 
 .trash-icon {
-    display: inline-block;
-    background-color: whitesmoke;
-    position: absolute;
-    left: 82%;
-    margin-top: -19%;
-    font-size: x-large;
-    cursor: pointer;
+  display: inline-block;
+  background-color: whitesmoke;
+  position: absolute;
+  left: 82%;
+  margin-top: -19%;
+  font-size: x-large;
+  cursor: pointer;
 
-    padding: 2.5% 3.5% 2.5% 3.5%;
-    border-radius: 200px;
+  padding: 2.5% 3.5% 2.5% 3.5%;
+  border-radius: 200px;
 }
 
 .trash-icon:hover {
-    background-color: rgb(196, 196, 196);
+  background-color: rgb(196, 196, 196);
 }
