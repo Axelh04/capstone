@@ -21,7 +21,7 @@ function NavBar() {
       <div className="user-info">
         {user ? (
           <>
-            <span> {user.username} Session.</span>
+            <span id="orange-text"> {user.username} Session.</span>
           </>
         ) : (
           <Link to="/">Error: Please go Back</Link>
