@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 import { useEffect, useRef, useState } from "react";
-import "./PlaybackSound.css";
+import "./PlaybackContainer.css";
 
 function PlaybackContainer({
   midiSounds,

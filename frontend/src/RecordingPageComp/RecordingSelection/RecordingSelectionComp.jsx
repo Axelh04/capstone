@@ -1,8 +1,8 @@
 /* eslint-disable react/prop-types */
 
 import { useContext, useEffect, useState, useRef } from "react";
-import { UserContext } from "../UserContext.js";
-import "./RecordingWheel.css";
+import { UserContext } from "../../UserContext.js";
+import "./RecordingSelection.css";
 
 function RecordingSelector({
   setSelectedBlob,

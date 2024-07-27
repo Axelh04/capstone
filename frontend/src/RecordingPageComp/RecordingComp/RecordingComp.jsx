@@ -1,7 +1,7 @@
 import { AudioRecorder, useAudioRecorder } from "react-audio-voice-recorder";
 import { useContext, useEffect, useRef } from "react";
-import { UserContext } from "../UserContext.js";
-import "./Microphone.css";
+import { UserContext } from "../../UserContext.js";
+import "./RecordingComp.css";
 
 function RecordingComp() {
   const { user } = useContext(UserContext);
