@@ -72,7 +72,9 @@ function SavedRecordings({ recordings, setRecordings }) {
   };
 
   return (
-    <div id="profile-recordings-list">
+    <div id="profile-recordings-list-container">
+      <img id="waveTop" alt="wave" src="/sineWave.png"></img>
+
       {recordings.length > 0 ? (
         recordings.map((url, index) => (
           <>
