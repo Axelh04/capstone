@@ -25,7 +25,7 @@ function RecordingPage() {
         setIsMidiReady(true);
       }
     };
-    setTimeout(checkMidiInitialization, 1000);
+    setTimeout(checkMidiInitialization, 50);
   }, [selectedBlob]);
 
   return (
@@ -51,12 +51,13 @@ function RecordingPage() {
           </div>
         </div>
         <div id="bottom-half-container">
+            <div id = "playback-container">
           {isLoadingRecording ? (
             <div className="playback-container-spinner-container">
               <div className="playback-container-spinner"></div>
             </div>
           ) : (
-            <div className="playback-container">
+            <div>
               {isMidiReady &&
                 (isLoadingInstrument ? (
                   <div className="spinner-container">
@@ -81,6 +82,7 @@ function RecordingPage() {
               </div>
             </div>
           )}
+        </div>
         </div>
       </div>
       <footer>

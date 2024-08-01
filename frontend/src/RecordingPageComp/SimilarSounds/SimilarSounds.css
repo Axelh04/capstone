@@ -1,7 +1,7 @@
 #fetch-sounds-button {
   position: absolute;
   background-color: gainsboro;
-  margin-left: 23%;
+  margin-left: 24%;
   padding: 3% 4% 3% 4%;
   border-radius: 50px;
   font-size: x-large;
@@ -32,7 +32,7 @@
 
 .similarsounds-spinner-container {
   position: absolute;
-  left: 36%;
+  left: 31%;
   top: 35%;
   justify-content: center;
   align-items: center;
