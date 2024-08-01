@@ -92,6 +92,11 @@ function RecordingPage() {
           appElementName="root"
           instruments={[3]}
         />
+
+        <div id = "footer-text">
+          By Axelh04 (2024).
+        </div>
+        
       </footer>
     </>
   );
