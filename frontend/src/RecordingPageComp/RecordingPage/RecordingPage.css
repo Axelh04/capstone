@@ -22,12 +22,21 @@
   height: 65%;
   position: absolute;
   display: inline-block;
-  margin: 5% 4% 2% 75%;
-  overflow: hidden;
-  overflow-y: scroll;
+  margin: 5% 4% 2% 76%;
   background-color: white;
   color: black;
   border-radius: 30px;
+  overflow: hidden;
+  z-index: 2;
+  box-shadow: -18px 18px 0px -10px gainsboro, -28px 28px 1px -15px #beb3ae,
+    -36px 36px 2px -16px #9e908a, -41px 41px 5px -18px #a17e6d;
+  transition: 1s;
+}
+
+.instruments-container:hover {
+  margin-top: 6%;
+  box-shadow: -0px -0px 10px 5px gainsboro, -0px -0px 10px 15px #beb3ae,
+    0px -0px 10px 25px #9e908a, 0px -0px 10px 30px #a17e6d;
 }
 
 .recording-container {
@@ -46,14 +55,13 @@
   position: absolute;
   display: inline-block;
   width: 20%;
-  height: 90%;
+  height: 95%;
   right: 8%;
   top: 5%;
   overflow: hidden;
-  overflow-y: scroll;
 }
 
-.playback-container {
+#playback-container {
   width: 90%;
   height: 80%;
   position: relative;
@@ -62,11 +70,35 @@
   margin: 2% 2% 2% 5%;
   background-color: white;
   color: black;
+  z-index: 2;
+  box-shadow: -0px -33px 0px -20px gainsboro, -0px -73px 1px -50px #beb3ae,
+    0px -118px 2px -90px #ac775f, 0px -150px 5px -120px #be7957;
+  transition: 1s;
+}
+
+#playback-container:hover {
+  margin-top: 1%;
+  box-shadow: -0px -0px 10px 10px gainsboro, -0px -0px 10px 25px #beb3ae,
+    0px -0px 10px 33px #9e908a, 0px -0px 10px 40px #a17e6d;
 }
 
 footer {
-  width: 100%;
+  width: 90%;
+  bottom: -5%;
   height: min-content;
+  padding: 1%;
+  margin: auto;
+  background-color: white;
+  border-radius: 25px;
+  box-shadow: -0px -17px 0px -6px gainsboro, -0px -35px 1px -16px #beb3ae,
+  0px -47px 2px -22px #ac775f, 0px -54px 5px -25px #be7957;
+  color: black;
+}
+
+#footer-text {
+  position: absolute;
+  bottom: -7%;
+  left: 46%;
 }
 
 .playback-container-spinner-container {

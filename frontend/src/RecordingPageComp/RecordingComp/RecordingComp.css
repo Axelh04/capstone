@@ -7,19 +7,27 @@
   margin: 5% 2% 2% 4%;
   padding: 1% 0% 0% 1%;
   transition: 1s;
-  background-color: #ff4f00;
-  box-shadow: 20px 0px 20px #ff4f00;
+  background-color:transparent;
 }
 
-#microphone-container:hover {
+/* #microphone-container:hover {
   width: 70%;
-}
+} */
 
 #microphone-container .audio-recorder {
   width: 88%;
   height: 75%;
   border-radius: 300px;
   margin: inherit;
+  box-shadow: 18px 18px 0px -10px gainsboro, 28px 28px 1px -15px #beb3ae,
+    38px 38px 2px -20px #9e908a, 45px 45px 5px -22px #a17e6d;
+  transition: 1s;
+}
+
+#microphone-container .audio-recorder:hover {
+  width: 300%;
+  box-shadow: -0px -0px 10px 5px gainsboro, -0px -0px 10px 15px #beb3ae,
+    0px -0px 10px 25px #9e908a, 0px -0px 10px 30px #a17e6d;
 }
 
 #microphone-container .audio-recorder:hover {

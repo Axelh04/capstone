@@ -41,7 +41,7 @@ function SimilarSounds({ note, playbackDuration }) {
 
   return (
     <>
-      <div id="fetch-sounds-button">Get Similar Sounds</div>
+      <div id="fetch-sounds-button">Similar Sounds</div>
       {isLoadingSounds ? (
         <div className="similarsounds-spinner-container">
           <div className="playbutton-spinner"></div>
@@ -59,6 +59,7 @@ function SimilarSounds({ note, playbackDuration }) {
           )}
         </div>
       )}
+      <div id = "similarsounds-shadow-box-bottom"></div>
     </>
   );
 }

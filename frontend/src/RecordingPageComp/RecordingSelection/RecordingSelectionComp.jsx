@@ -56,7 +56,7 @@ function RecordingSelector({
       setIsLoadingRecording(true);
       setTimeout(() => {
         setIsLoadingRecording(false);
-      }, 2000);
+      }, 3000);
       setSelectedBlob(recordings[index]);
     }
   }

@@ -8,6 +8,7 @@ function InstrumentSelection({
   setIsLoadingInstrument,
 }) {
   const [selectedIdx, setSelectedIdx] = useState(null);
+  const [query, setQuery] = useState("");
 
   let instrumentList = [];
   for (
@@ -34,25 +35,36 @@ function InstrumentSelection({
     }, 1000);
   }, [selectedIdx]);
 
+  const handleChange = function (event) {
+    setQuery(event.target.value);
+  };
+
   return (
     <>
+      <input id = "instrument-search-bar"onChange={handleChange} placeholder="Search.." />
       <div id="instrument-list">
         {instrumentList.length > 0 ? (
-          instrumentList.map((instrument, index) => (
-            <div
-              key={index}
-              className={`instrument-item ${
-                selectedIdx === index ? "selected" : ""
-              }`}
-              onClick={() => handleSelectInstrument(index)}
-            >
-              {index + 1}. {instrument.title}{" "}
-            </div>
-          ))
+          instrumentList.map((instrument, index) => {
+            if (instrument.title.toLowerCase().includes(query.toLowerCase())) {
+              return (
+                <div
+                  key={index}
+                  className={`instrument-item ${
+                    selectedIdx === index ? "selected" : ""
+                  }`}
+                  onClick={() => handleSelectInstrument(index)}
+                >
+                  {index + 1}. {instrument.title}{" "}
+                </div>
+              );
+            }
+          })
         ) : (
           <div>No Recordings found.</div>
         )}
       </div>
+      <div id = "instrument-shadow-box-bottom"></div>
+
     </>
   );
 }
