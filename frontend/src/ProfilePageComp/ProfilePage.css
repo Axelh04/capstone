@@ -1,13 +1,34 @@
 #profile-info-container {
   position: absolute;
-  width: 20%;
+  width: 30%;
   height: 80%;
   top: 15%;
-  left: 28%;
+  left: 17%;
 
   background-color: whitesmoke;
   border-radius: 50px;
   color: black;
+
+  box-shadow: 18px 18px 0px -10px gainsboro, 28px 28px 1px -15px #beb3ae,
+    36px 36px 2px -16px #9e908a, 41px 41px 5px -18px #a17e6d;
+  z-index: 3;
+  transition: 1s;
+}
+
+#profile-info-container:hover,
+#profile-recordings-list-container:hover {
+  margin-top: 1%;
+  box-shadow: -0px -0px 10px 3px gainsboro, -0px -0px 10px 8px #beb3ae,
+    0px -0px 10px 12px #9e908a, 0px -0px 10px 15px #a17e6d;
+}
+
+#mic-img-profilepage {
+  top: 5%;
+  left: -11%;
+  position: absolute;
+  width: 40%;
+  z-index: 2;
+  transition: 0.7s;
 }
 
 #profile-details {
@@ -48,7 +69,7 @@
 #profile-info-title {
   position: absolute;
   top: 10%;
-  left: 31%;
+  left: 26%;
   color: white;
   font-size: xx-large;
 }
@@ -61,20 +82,24 @@
   font-size: xx-large;
 }
 
-#profile-recordings-list {
+#profile-recordings-list-container {
   position: absolute;
   width: 30%;
   height: 80%;
   overflow: hidden;
   overflow-y: scroll;
-  left: 50%;
+  left: 51%;
   top: 15%;
   background-color: gainsboro;
   border-radius: 50px;
   padding: 2.6% 3% 3% 3%;
+  box-shadow: -18px 18px 0px -10px rgb(200, 200, 200),
+    -28px 28px 1px -15px #beb3ae, -36px 36px 2px -16px #9e908a,
+    -41px 41px 5px -18px #a17e6d;
+  transition: 1s;
 }
 
-#profile-recordings-list::-webkit-scrollbar {
+#profile-recordings-list-container::-webkit-scrollbar {
   display: none;
 }
 
