@@ -17,7 +17,6 @@ function SimilarSounds({ note, playbackDuration }) {
     //Freesound API request
     try {
       setIsLoadingSounds(true);
-      console.log(note);
       if (note != 0) {
         const API_KEY = import.meta.env.VITE_APP_API_KEY;
         const response = await fetch(
