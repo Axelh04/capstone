@@ -18,7 +18,7 @@ audio::-webkit-media-controls-enclosure {
 }
 
 .audio-item {
-  transition: transform 0.1s linear; /* Smooth transition for scaling */
+  transition: transform 0.1s linear;
   display: block;
   width: 75%;
   height: 50%;
