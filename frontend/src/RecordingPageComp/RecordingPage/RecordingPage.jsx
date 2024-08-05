@@ -15,6 +15,7 @@ function RecordingPage() {
   const [selectedBlob, setSelectedBlob] = useState(null);
   const [isLoadingInstrument, setIsLoadingInstrument] = useState(false);
   const [isLoadingRecording, setIsLoadingRecording] = useState(false);
+  const [refreshNum, setRefreshNum] = useState(0);
 
   const midiSounds = useRef(null);
 
@@ -33,13 +34,18 @@ function RecordingPage() {
       <div className="main">
         <NavBar />
         <div id="top-half-container">
-          <RecordingComp />
+          <RecordingComp
+            refreshNum={refreshNum}
+            setRefreshNum={setRefreshNum}
+          />
           <RecordingSelector
             setSelectedBlob={setSelectedBlob}
             selectedBlob={selectedBlob}
             setIsLoadingRecording={setIsLoadingRecording}
+            refreshNum={refreshNum}
           />
 
+          <div id="instruments-label">Select an Instrument</div>
           <div className="instruments-container">
             {isMidiReady && (
               <InstrumentSelection
@@ -51,38 +57,39 @@ function RecordingPage() {
           </div>
         </div>
         <div id="bottom-half-container">
-            <div id = "playback-container">
-          {isLoadingRecording ? (
-            <div className="playback-container-spinner-container">
-              <div className="playback-container-spinner"></div>
-            </div>
-          ) : (
-            <div>
-              {isMidiReady &&
-                (isLoadingInstrument ? (
-                  <div className="spinner-container">
-                    <div className="playbutton-spinner"></div>
-                  </div>
-                ) : (
-                  <div>
-                    <PlaybackContainer
-                      midiSounds={midiSounds}
-                      selectedInstrument={selectedInstrument}
-                      selectedBlob={selectedBlob}
-                      setNote={setNote}
-                      setPlaybackDuration={setPlaybackDuration}
-                    />
-                  </div>
-                ))}
-              <div className="similar-sounds-container">
-                <SimilarSounds
-                  note={note}
-                  playbackDuration={playbackDuration}
-                />
+          <div id="playback-label">Play Your Sounds</div>
+          <div id="playback-container">
+            {isLoadingRecording ? (
+              <div className="playback-container-spinner-container">
+                <div className="playback-container-spinner"></div>
               </div>
-            </div>
-          )}
-        </div>
+            ) : (
+              <div>
+                {isMidiReady &&
+                  (isLoadingInstrument ? (
+                    <div className="spinner-container">
+                      <div className="playbutton-spinner"></div>
+                    </div>
+                  ) : (
+                    <div>
+                      <PlaybackContainer
+                        midiSounds={midiSounds}
+                        selectedInstrument={selectedInstrument}
+                        selectedBlob={selectedBlob}
+                        setNote={setNote}
+                        setPlaybackDuration={setPlaybackDuration}
+                      />
+                    </div>
+                  ))}
+                <div className="similar-sounds-container">
+                  <SimilarSounds
+                    note={note}
+                    playbackDuration={playbackDuration}
+                  />
+                </div>
+              </div>
+            )}
+          </div>
         </div>
       </div>
       <footer>
@@ -93,10 +100,7 @@ function RecordingPage() {
           instruments={[3]}
         />
 
-        <div id = "footer-text">
-          By Axelh04 (2024).
-        </div>
-        
+        <div id="footer-text">By Axelh04 | Meta University 2024</div>
       </footer>
     </>
   );

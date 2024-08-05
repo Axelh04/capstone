@@ -78,7 +78,7 @@ function SavedRecordings({ recordings, setRecordings }) {
       {recordings.length > 0 ? (
         recordings.map((url, index) => (
           <>
-            <audio className="profile-audio" key={index} controls src={url} />
+            <audio autoPlay muted className="profile-audio" key={index} controls src={url} />
             <span
               className="trash-icon"
               onClick={() => {

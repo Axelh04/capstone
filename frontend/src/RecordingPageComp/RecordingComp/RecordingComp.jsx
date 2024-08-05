@@ -1,9 +1,11 @@
+/* eslint-disable react/prop-types */
+
 import { AudioRecorder, useAudioRecorder } from "react-audio-voice-recorder";
 import { useContext, useEffect, useRef } from "react";
 import { UserContext } from "../../UserContext.js";
 import "./RecordingComp.css";
 
-function RecordingComp() {
+function RecordingComp({ refreshNum, setRefreshNum }) {
   const { user } = useContext(UserContext);
 
   const recorderControls = useAudioRecorder();
@@ -51,6 +53,8 @@ function RecordingComp() {
     if (!audioContextRef.current) {
       audioContextRef.current = new AudioContext();
     }
+
+    setRefreshNum(refreshNum + 1);
   };
 
   useEffect(() => {
@@ -61,6 +65,7 @@ function RecordingComp() {
   return (
     <>
       <div id="microphone-container">
+        <div id="microphone-label">Start Recording</div>
         <AudioRecorder
           onRecordingComplete={(blob) => addAudioElement(blob)}
           recorderControls={recorderControls}

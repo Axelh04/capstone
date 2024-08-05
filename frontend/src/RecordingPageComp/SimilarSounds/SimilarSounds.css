@@ -1,15 +1,17 @@
 #fetch-sounds-button {
   position: absolute;
-  background-color: gainsboro;
   margin-left: 24%;
   padding: 3% 4% 3% 4%;
   border-radius: 50px;
   font-size: x-large;
-  box-shadow: 40px 12px 7px white, -40px 12px 7px white, -70px 15px 6px white, 70px 15px 6px white;
+  box-shadow: 40px 12px 7px white, -40px 12px 7px white, -70px 15px 6px white,
+    70px 15px 6px white;
+  background: linear-gradient(315deg, #e6e6e6, #ffffff);
+  box-shadow: -20px -20px 60px #d9d9d9, 20px 20px 60px #ffffff;
   z-index: 3;
 }
 
-#similar-sounds-list::-webkit-scrollbar  {
+#similar-sounds-list::-webkit-scrollbar {
   display: none;
 }
 
@@ -47,6 +49,7 @@
   height: 5%;
   left: 10%;
   width: 80%;
-  box-shadow: 25px -5px 7px white, -25px -5px 7px white, -30px -2px 6px white, 30px -2px 6px white;
+  box-shadow: 25px -5px 7px white, -25px -5px 7px white, -30px -2px 6px white,
+    30px -2px 6px white;
   z-index: 3;
 }

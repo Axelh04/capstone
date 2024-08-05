@@ -13,13 +13,14 @@
     36px 36px 2px -16px #9e908a, 41px 41px 5px -18px #a17e6d;
   z-index: 3;
   transition: 1s;
+  overflow: hidden;
 }
 
 #profile-info-container:hover,
 #profile-recordings-list-container:hover {
   margin-top: 1%;
-  box-shadow: -0px -0px 10px 3px gainsboro, -0px -0px 10px 8px #beb3ae,
-    0px -0px 10px 12px #9e908a, 0px -0px 10px 15px #a17e6d;
+  box-shadow: -0px -0px 1px 5px gainsboro, -0px -0px 2px 9px #beb3ae,
+    0px -0px 3px 12px #9e908a, 0px -0px 4px 15px #a17e6d;
 }
 
 #mic-img-profilepage {
@@ -34,7 +35,6 @@
 #profile-details {
   position: absolute;
   width: 85%;
-
   height: 95%;
   top: 5%;
   left: 7%;
@@ -46,7 +46,8 @@
   background-color: gainsboro;
   border-radius: 30px;
   padding: 5%;
-  width: 100%;
+  background: linear-gradient(145deg, #e6e6e6, #ffffff);
+  box-shadow: 20px 20px 60px #d9d9d9, -20px -20px 60px #ffffff;
 }
 
 .user-detail {
@@ -77,7 +78,7 @@
 #profile-recordings-title {
   position: absolute;
   top: 10%;
-  left: 60%;
+  left: 61%;
   color: white;
   font-size: xx-large;
 }

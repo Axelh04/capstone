@@ -93,7 +93,7 @@ function Landing() {
         </p>
 
         <p id="playback-similarsounds-desc">
-          Click on the Get Similar Sounds button, to listen to similar sounds
+          Under Similar Sounds, listen to similar sounds
           based on the duration or note of your recording.
         </p>
         <img

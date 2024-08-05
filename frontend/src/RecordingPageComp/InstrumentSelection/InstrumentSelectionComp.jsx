@@ -41,7 +41,11 @@ function InstrumentSelection({
 
   return (
     <>
-      <input id = "instrument-search-bar"onChange={handleChange} placeholder="Search.." />
+      <input
+        id="instrument-search-bar"
+        onChange={handleChange}
+        placeholder="Search.."
+      />
       <div id="instrument-list">
         {instrumentList.length > 0 ? (
           instrumentList.map((instrument, index) => {
@@ -63,8 +67,7 @@ function InstrumentSelection({
           <div>No Recordings found.</div>
         )}
       </div>
-      <div id = "instrument-shadow-box-bottom"></div>
-
+      <div id="instrument-shadow-box-bottom"></div>
     </>
   );
 }

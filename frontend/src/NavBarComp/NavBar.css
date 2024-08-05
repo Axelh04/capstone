@@ -17,13 +17,25 @@
 
 .navBar:hover {
   top: -25%;
-  box-shadow: -0px -0px 10px 5px gainsboro, -0px -0px 10px 10px #beb3ae,
-  0px -0px 10px 10px #9e908a, 0px -0px 10px 15px #a17e6d;
+  box-shadow: -0px -0px 1px 5px gainsboro, -0px -0px 2px 10px #beb3ae,
+  0px -0px 3px 10px #9e908a, 0px -0px 4px 15px #a17e6d;
 }
 
 .navButton {
   font-size: xx-large;
+  transition: .2s;
 }
+
+.navButton:hover {
+  color: #ff4f00;
+  margin-left: 3%;
+}
+
+.navButton:active {
+  font-size: x-large;
+  color: gray;
+}
+
 
 #arrow {
   font-size: x-large;

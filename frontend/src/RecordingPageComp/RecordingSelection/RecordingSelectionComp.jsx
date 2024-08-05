@@ -8,6 +8,7 @@ function RecordingSelector({
   setSelectedBlob,
   selectedBlob,
   setIsLoadingRecording,
+  refreshNum,
 }) {
   const { user } = useContext(UserContext);
   const [recordings, setRecordings] = useState([]);
@@ -16,7 +17,7 @@ function RecordingSelector({
 
   useEffect(() => {
     fetchData();
-  }, []);
+  }, [refreshNum]);
 
   useEffect(() => {
     const container = containerRef.current;
@@ -49,7 +50,11 @@ function RecordingSelector({
       const minScale = 0.7;
       const maxScale = 1.3;
       const normalizedScale = minScale + (maxScale - minScale) * scale;
+      const opacity = scale;
+      const zIndex = Math.floor(scale * 100); 
       elem.style.transform = `scale(${normalizedScale})`;
+      elem.style.opacity = opacity;
+      elem.style.zIndex = zIndex;
     });
     if (closestElem) {
       const index = Array.from(elements).indexOf(closestElem);
@@ -80,6 +85,7 @@ function RecordingSelector({
           return audioBlob;
         });
         setRecordings(blobs);
+        setSelectedBlob(blobs[0]);
       }
     } catch (error) {
       alert("Failed to fetch audios. Please try again.", error.message);
@@ -101,11 +107,11 @@ function RecordingSelector({
     <>
       <div id="audio-selection-outline"></div>
       <div className="recording-container" ref={containerRef}>
-        <div id="wheel-top-shadow-box"></div>
+        <div id="recordings-label">Select a Recording</div>
         {recordingUrls.length > 0 ? (
           recordingUrls.map((blob, index) => (
             <div key={index} className="audio-item">
-              <audio controls src={blob} />
+              <audio autoPlay muted controls src={blob} />
             </div>
           ))
         ) : (

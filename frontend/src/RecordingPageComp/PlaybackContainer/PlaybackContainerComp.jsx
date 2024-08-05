@@ -288,11 +288,11 @@ function PlaybackContainer({
           <div> No Instrument Selected.</div>
         )}
       </div>
-      <button id="play-button" onClick={startPlayback}>
+      <button id= {isPlaying ? "play-button-playing" : "play-button-stopped"} onClick={startPlayback}>
         <img alt="play-icon" src="/play-button.png"></img>
       </button>
       <button id="stop-button" onClick={stopPlayback}>
-        <img alt="stop-button" src="/stop-button.png"></img>
+        <img alt="stop-button" src="/stop-square.png"></img>
       </button>
     </>
   );

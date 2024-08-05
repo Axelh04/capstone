@@ -20,7 +20,7 @@ function SimilarSounds({ note, playbackDuration }) {
       if (note != 0) {
         const API_KEY = import.meta.env.VITE_APP_API_KEY;
         const response = await fetch(
-          `https://freesound.org/apiv2/search/text/?token=${API_KEY}&filter=duration:${duration}%20ac_note_midi:${midinote}&fields=name,previews`
+          `https://freesound.org/apiv2/search/text/?token=${API_KEY}&query=music&filter=duration:${duration}%20ac_note_midi:${midinote}&fields=name,previews`
         );
         if (!response.ok) {
           throw new Error(`HTTP error! Status: ${response.status}`);
@@ -50,11 +50,11 @@ function SimilarSounds({ note, playbackDuration }) {
           {soundList.length > 0 ? (
             soundList.map((sound, index) => (
               <div key={index} id="sound-item">
-                <audio controls src={sound.previews["preview-lq-mp3"]}></audio>
+                <audio autoPlay muted controls src={sound.previews["preview-lq-mp3"]}></audio>
               </div>
             ))
           ) : (
-            <></>
+            <> Similar sounds not found. Select another Recording.</>
           )}
         </div>
       )}
